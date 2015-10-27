@@ -7,6 +7,9 @@ Website available [here](http://walther.github.io/wiklajs/)
 
 ## Contributing
 
-- Markdown / CommonMark for writing the document
-- Pandoc for generating HTML
-- Command: `pandoc -t html5 -c style.css index.md -o index.html --no-highlight`
+- Edit the document `index.md` using Markdown / CommonMark
+- Run the command `./build` to generate the HTML. Requires `pandoc` installed on the system
+- Check whether the `index.html` looks fine
+- Commit changes
+- Push back to github
+- Enjoy the [site](http://walther.github.io/wiklajs/)
