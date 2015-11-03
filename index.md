@@ -5,3 +5,6 @@ Simple site for submitting answers for the exercises on the course "Ohjelmointit
 Group members:
 
 - veeti "walther" haapsamo
+- pauli "iluaP" niva
+- ville "vvainio" vainio
+- niko "aozi" novitsky
