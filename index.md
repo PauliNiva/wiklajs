@@ -22,7 +22,7 @@ function isNumber(a) {
 
 function isInt (a) {
     return (isNumber(a) && a%1===0) ? true : false; // remainder with 1 must be explicitly 0
-    
+
 }
 
 function isString(a) {
@@ -43,6 +43,18 @@ function isArrayOfInts (a) {
 
 function isArrayOfString (a) {
     return (isArray(a) && a.every(isString)) ? true : false;
+}
+
+function isBoolean(a) {
+    return typeof a === "boolean";
+}
+
+function isUndefined(a) {
+    return typeof a === "undefined";
+}
+
+function isNull(a) {
+    return a === null;
 }
 
 // Tests

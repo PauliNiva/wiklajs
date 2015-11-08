@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="wiklajs">wiklajs</h1>
@@ -31,7 +31,7 @@ function isNumber(a) {
 
 function isInt (a) {
     return (isNumber(a) &amp;&amp; a%1===0) ? true : false; // remainder with 1 must be explicitly 0
-    
+
 }
 
 function isString(a) {
@@ -52,6 +52,18 @@ function isArrayOfInts (a) {
 
 function isArrayOfString (a) {
     return (isArray(a) &amp;&amp; a.every(isString)) ? true : false;
+}
+
+function isBoolean(a) {
+    return typeof a === &quot;boolean&quot;;
+}
+
+function isUndefined(a) {
+    return typeof a === &quot;undefined&quot;;
+}
+
+function isNull(a) {
+    return a === null;
 }
 
 // Tests
