@@ -97,6 +97,7 @@ false === &quot;0&quot;
 null  === undefined
 &quot; &quot;   === 0
 </code></pre>
+<p>These are caused by <em>type coercion</em>: when using a simple <code>==</code>for checking equality, the types of the parameters are coerced to match. A string is happily converted into a number, and so on. In some cases this might be useful, but it can also be a big source of confusion - use caution when using <code>==</code>. Usually it is better to just use <code>===</code> for stricter and more logical checking. In addition to making more sense, <code>===</code> can provide a performance boost, as there is no overhead from type conversion from coercion.</p>
 <h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
 <p>Here are some example functions for checking the types of values.</p>
 <pre class="javascript"><code>function isNumber(a) {

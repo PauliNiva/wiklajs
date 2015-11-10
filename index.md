@@ -88,6 +88,8 @@ null  === undefined
 
 ```
 
+These are caused by *type coercion*: when using a simple `==`for checking equality, the types of the parameters are coerced to match. A string is happily converted into a number, and so on. In some cases this might be useful, but it can also be a big source of confusion - use caution when using `==`. Usually it is better to just use `===` for stricter and more logical checking. In addition to making more sense, `===` can provide a performance boost, as there is no overhead from type conversion from coercion.
+
 ### Functions for checking data types
 
 Here are some example functions for checking the types of values.
