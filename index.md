@@ -83,7 +83,7 @@ console.assert(true === isArrayOfNumbers([5]), 'isArrayOfNumbers [5]');
 console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 ```
 
-### General guidelines & gotchas:
+### General guidelines & gotchas
 __Types__
 
 JavaScript is a _loosely_ typed or a _dynamic_ language:
