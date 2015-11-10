@@ -101,31 +101,31 @@ null  === undefined
 <h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
 <p>Here are some example functions for checking the types of values.</p>
 <pre class="javascript"><code>function isNumber(a) {
-    return (!isNaN(a) &amp;&amp; typeof a === &quot;number&quot;) ? true : false;
+    return !isNaN(a) &amp;&amp; typeof a === &quot;number&quot;;
 }
 
 function isInt (a) {
-    return (isNumber(a) &amp;&amp; a % 1 === 0) ? true : false; // remainder with 1 must be explicitly 0
+    return isNumber(a) &amp;&amp; a % 1 === 0; // remainder with 1 must be explicitly 0
 }
 
 function isString(a) {
-    return (typeof a === &quot;string&quot;) ? true : false;
+    return typeof a === &quot;string&quot;;
 }
 
 function isArray(a) {
-    return (Array.isArray(a)) ? true : false;
+    return Array.isArray(a);
 }
 
 function isArrayOfNumbers (a) {
-    return (isArray(a) &amp;&amp; a.every(isNumber)) ? true : false;
+    return isArray(a) &amp;&amp; a.every(isNumber);
 }
 
 function isArrayOfInts (a) {
-    return (isArray(a) &amp;&amp; a.every(isInt)) ? true : false;
+    return isArray(a) &amp;&amp; a.every(isInt);
 }
 
 function isArrayOfString (a) {
-    return (isArray(a) &amp;&amp; a.every(isString)) ? true : false;
+    return isArray(a) &amp;&amp; a.every(isString);
 }
 
 function isBoolean(a) {

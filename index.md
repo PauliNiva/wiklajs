@@ -96,31 +96,31 @@ Here are some example functions for checking the types of values.
 
 ```javascript
 function isNumber(a) {
-    return (!isNaN(a) && typeof a === "number") ? true : false;
+    return !isNaN(a) && typeof a === "number";
 }
 
 function isInt (a) {
-    return (isNumber(a) && a % 1 === 0) ? true : false; // remainder with 1 must be explicitly 0
+    return isNumber(a) && a % 1 === 0; // remainder with 1 must be explicitly 0
 }
 
 function isString(a) {
-    return (typeof a === "string") ? true : false;
+    return typeof a === "string";
 }
 
 function isArray(a) {
-    return (Array.isArray(a)) ? true : false;
+    return Array.isArray(a);
 }
 
 function isArrayOfNumbers (a) {
-    return (isArray(a) && a.every(isNumber)) ? true : false;
+    return isArray(a) && a.every(isNumber);
 }
 
 function isArrayOfInts (a) {
-    return (isArray(a) && a.every(isInt)) ? true : false;
+    return isArray(a) && a.every(isInt);
 }
 
 function isArrayOfString (a) {
-    return (isArray(a) && a.every(isString)) ? true : false;
+    return isArray(a) && a.every(isString);
 }
 
 function isBoolean(a) {
