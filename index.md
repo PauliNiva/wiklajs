@@ -13,7 +13,7 @@ Group members:
 
 ### Week 1
 
-~~~{.javascript}
+```javascript
 // Functions for typechecking
 
 function isNumber(a) {
@@ -21,8 +21,7 @@ function isNumber(a) {
 }
 
 function isInt (a) {
-    return (isNumber(a) && a%1===0) ? true : false; // remainder with 1 must be explicitly 0
-
+    return (isNumber(a) && a % 1 === 0) ? true : false; // remainder with 1 must be explicitly 0
 }
 
 function isString(a) {
@@ -80,9 +79,55 @@ console.assert(false === isArrayOfInts([5.2]), 'not isArrayOfInts [5.2]');
 // string array
 console.assert(true === isArrayOfNumbers([5]), 'isArrayOfNumbers [5]');
 console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
-~~~
+```
 
+## General guidelines & gotchas:
+__Types__
 
+JavaScript is a _loosely_ typed or a _dynamic_ language:
+
+- Primitive datatypes:
+    - Boolean
+    - Null
+    - Undefined
+    - Number
+    - String
+    - Symbol (ECMAScript 6)
+- and Object
+
+__Variable Hoisting:__
+```javascript
+var sum = 21;
+
+function alertSum() {
+    if (false) {
+        var sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();
+```
+
+Alerts `undefined`, not `42` or `21`!
+
+Why? Because the JavaScript compiler interprets the code as follows:
+```javascript
+var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();
+```
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>

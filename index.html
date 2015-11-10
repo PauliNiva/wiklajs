@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1 id="wiklajs">wiklajs</h1>
@@ -30,8 +30,7 @@ function isNumber(a) {
 }
 
 function isInt (a) {
-    return (isNumber(a) &amp;&amp; a%1===0) ? true : false; // remainder with 1 must be explicitly 0
-
+    return (isNumber(a) &amp;&amp; a % 1 === 0) ? true : false; // remainder with 1 must be explicitly 0
 }
 
 function isString(a) {
@@ -89,6 +88,48 @@ console.assert(false === isArrayOfInts([5.2]), &#39;not isArrayOfInts [5.2]&#39;
 // string array
 console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
 console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNumbers [&quot;5&quot;]&#39;);</code></pre>
+<h2 id="general-guidelines-gotchas">General guidelines &amp; gotchas:</h2>
+<p><strong>Types</strong></p>
+<p>JavaScript is a <em>loosely</em> typed or a <em>dynamic</em> language:</p>
+<ul>
+<li>Primitive datatypes:
+<ul>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Number</li>
+<li>String</li>
+<li>Symbol (ECMAScript 6)</li>
+</ul></li>
+<li>and Object</li>
+</ul>
+<p><strong>Variable Hoisting:</strong></p>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    if (false) {
+        var sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
+<p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
+<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
