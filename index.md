@@ -1,4 +1,6 @@
-# wiklajs
+---
+title: wiklajs
+---
 
 Simple site for submitting answers for the exercises on the course "Ohjelmointitekniikka: JavaScript".
 
@@ -9,9 +11,9 @@ Group members:
 - ville "vvainio" vainio
 - niko "aozi" novitsky
 
-## Exercises
+## Week 1
 
-### Week 1
+### Functions for checking data types
 
 ```javascript
 // Functions for typechecking
@@ -81,7 +83,7 @@ console.assert(true === isArrayOfNumbers([5]), 'isArrayOfNumbers [5]');
 console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 ```
 
-## General guidelines & gotchas:
+### General guidelines & gotchas:
 __Types__
 
 JavaScript is a _loosely_ typed or a _dynamic_ language:
