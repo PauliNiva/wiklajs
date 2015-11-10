@@ -1,2 +1,2 @@
 #!/bin/bash
-pandoc -t html5 -c style.css index.md -o index.html --no-highlight --toc
+pandoc --no-highlight --toc -t html5 -c style.css index.md -o index.html
