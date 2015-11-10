@@ -3,32 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>wiklajs</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+<h1 class="title">wiklajs</h1>
+</header>
 <nav id="TOC">
 <ul>
 <li><a href="#week-1">Week 1</a><ul>
@@ -39,13 +25,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 </nav>
-<table>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">title: wiklajs</td>
-</tr>
-</tbody>
-</table>
 <p>Simple site for submitting answers for the exercises on the course &quot;Ohjelmointitekniikka: JavaScript&quot;.</p>
 <p>Group members:</p>
 <ul>
@@ -54,8 +33,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>ville &quot;vvainio&quot; vainio</li>
 <li>niko &quot;aozi&quot; novitsky</li>
 </ul>
-<h2 id="week-1"><a href="#TOC">Week 1</a></h2>
-<h3 id="types"><a href="#TOC">Types</a></h3>
+<h2 id="week-1">Week 1</h2>
+<h3 id="types">Types</h3>
 <p>JavaScript is a <em>loosely</em> typed or a <em>dynamic</em> language:</p>
 <ul>
 <li>Primitive datatypes:
@@ -69,12 +48,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li>and Object</li>
 </ul>
-<h3 id="variable-hoisting"><a href="#TOC">Variable hoisting</a></h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> sum = <span class="dv">21</span>;
+<h3 id="variable-hoisting">Variable hoisting</h3>
+<pre class="javascript"><code>var sum = 21;
 
-<span class="kw">function</span> alertSum() {
-    <span class="kw">if</span> (<span class="kw">false</span>) {
-        <span class="kw">var</span> sum = <span class="dv">42</span>;
+function alertSum() {
+    if (false) {
+        var sum = 42;
     }
 
     alert(sum);
@@ -82,105 +61,110 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 alertSum();</code></pre>
 <p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
-<p>Why? Because the JavaScript compiler interprets the code as follows: ```javascript var sum = 21;</p>
-<p>function alertSum() { var sum;</p>
-<pre><code>if (false) {
-    sum = 42;
+<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
 }
 
-alert(sum);</code></pre>
-<p>}</p>
-<p>alertSum(); ```</p>
-<h3 id="equality"><a href="#TOC">Equality</a></h3>
+alertSum();</code></pre>
+<h3 id="equality">Equality</h3>
 <p>In JavaScript, there is a big difference between the functions <code>==</code>and <code>===</code>. See some differences in action:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// These return true:</span>
-<span class="dv">0</span>     == <span class="st">&quot;0&quot;</span>
-<span class="dv">0</span>     == <span class="st">&quot;&quot;</span>
-<span class="kw">false</span> == <span class="st">&quot;0&quot;</span>
+<pre class="javascript"><code>// These return true:
+0     == &quot;0&quot;
+0     == &quot;&quot;
+false == &quot;0&quot;
 null  == undefined
-<span class="st">&quot; &quot;</span>   == <span class="dv">0</span>
+&quot; &quot;   == 0
 
-<span class="co">// These return false:</span>
-<span class="st">&quot;&quot;</span>    == <span class="st">&quot;0&quot;</span>
-<span class="kw">false</span> == <span class="st">&quot;false&quot;</span>
-<span class="kw">false</span> == undefined
-<span class="kw">false</span> == null
+// These return false:
+&quot;&quot;    == &quot;0&quot;
+false == &quot;false&quot;
+false == undefined
+false == null
 
-<span class="co">// However, all these return false:</span>
-<span class="dv">0</span>     === <span class="st">&quot;0&quot;</span>
-<span class="dv">0</span>     === <span class="st">&quot;&quot;</span>
-<span class="kw">false</span> === <span class="st">&quot;0&quot;</span>
+// However, all these return false:
+0     === &quot;0&quot;
+0     === &quot;&quot;
+false === &quot;0&quot;
 null  === undefined
-<span class="st">&quot; &quot;</span>   === <span class="dv">0</span></code></pre>
+&quot; &quot;   === 0
+</code></pre>
 <p>These are caused by <em>type coercion</em>: when using a simple <code>==</code>for checking equality, the types of the parameters are coerced to match. A string is happily converted into a number, and so on. In some cases this might be useful, but it can also be a big source of confusion - use caution when using <code>==</code>. Usually it is better to just use <code>===</code> for stricter and more logical checking. In addition to making more sense, <code>===</code> can provide a performance boost, as there is no overhead from type conversion from coercion.</p>
-<h3 id="functions-for-checking-data-types"><a href="#TOC">Functions for checking data types</a></h3>
+<h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
 <p>Here are some example functions for checking the types of values.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> isNumber(a) {
-    <span class="kw">return</span> (!<span class="fu">isNaN</span>(a) &amp;&amp; <span class="kw">typeof</span> a === <span class="st">&quot;number&quot;</span>);
+<pre class="javascript"><code>function isNumber(a) {
+    return (!isNaN(a) &amp;&amp; typeof a === &quot;number&quot;) ? true : false;
 }
 
-<span class="kw">function</span> isInt (a) {
-    <span class="kw">return</span> (isNumber(a) &amp;&amp; a % <span class="dv">1</span> === <span class="dv">0</span>); <span class="co">// remainder with 1 must be explicitly 0</span>
+function isInt (a) {
+    return (isNumber(a) &amp;&amp; a % 1 === 0) ? true : false; // remainder with 1 must be explicitly 0
 }
 
-<span class="kw">function</span> isString(a) {
-    <span class="kw">return</span> (<span class="kw">typeof</span> a === <span class="st">&quot;string&quot;</span>);
+function isString(a) {
+    return (typeof a === &quot;string&quot;) ? true : false;
 }
 
-<span class="kw">function</span> isArray(a) {
-    <span class="kw">return</span> (<span class="kw">Array</span>.<span class="fu">isArray</span>(a));
+function isArray(a) {
+    return (Array.isArray(a)) ? true : false;
 }
 
-<span class="kw">function</span> isArrayOfNumbers (a) {
-    <span class="kw">return</span> (isArray(a) &amp;&amp; <span class="kw">a</span>.<span class="fu">every</span>(isNumber));
+function isArrayOfNumbers (a) {
+    return (isArray(a) &amp;&amp; a.every(isNumber)) ? true : false;
 }
 
-<span class="kw">function</span> isArrayOfInts (a) {
-    <span class="kw">return</span> (isArray(a) &amp;&amp; <span class="kw">a</span>.<span class="fu">every</span>(isInt));
+function isArrayOfInts (a) {
+    return (isArray(a) &amp;&amp; a.every(isInt)) ? true : false;
 }
 
-<span class="kw">function</span> isArrayOfString (a) {
-    <span class="kw">return</span> (isArray(a) &amp;&amp; <span class="kw">a</span>.<span class="fu">every</span>(isString));
+function isArrayOfString (a) {
+    return (isArray(a) &amp;&amp; a.every(isString)) ? true : false;
 }
 
-<span class="kw">function</span> isBoolean(a) {
-    <span class="kw">return</span> <span class="kw">typeof</span> a === <span class="st">&quot;boolean&quot;</span>;
+function isBoolean(a) {
+    return typeof a === &quot;boolean&quot;;
 }
 
-<span class="kw">function</span> isUndefined(a) {
-    <span class="kw">return</span> <span class="kw">typeof</span> a === <span class="st">&quot;undefined&quot;</span>;
+function isUndefined(a) {
+    return typeof a === &quot;undefined&quot;;
 }
 
-<span class="kw">function</span> isNull(a) {
-    <span class="kw">return</span> a === null;
+function isNull(a) {
+    return a === null;
 }
 
-<span class="co">// Tests</span>
+// Tests
 
-<span class="co">// number</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isNumber(<span class="dv">5</span>), <span class="st">&quot;isNumber 5&quot;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isNumber(<span class="st">&quot;5&quot;</span>), <span class="ch">&#39;not isNumber &quot;5&quot;&#39;</span>);
-<span class="co">// int</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isNumber(<span class="dv">5</span>), <span class="st">&quot;isNumber 5&quot;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isNumber(<span class="st">&quot;5&quot;</span>), <span class="ch">&#39;not isNumber &quot;5&quot;&#39;</span>);
-<span class="co">// string</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isString(<span class="st">&quot;5&quot;</span>), <span class="ch">&#39;isString &quot;5&quot;&#39;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isString(<span class="dv">5</span>), <span class="ch">&#39;not isString 5&#39;</span>);
-<span class="co">// array</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isArray([<span class="st">&quot;5&quot;</span>]), <span class="ch">&#39;isArray [&quot;5&quot;]&#39;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isArray(<span class="dv">5</span>), <span class="ch">&#39;not isArray 5&#39;</span>);
-<span class="co">// number array</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isArrayOfNumbers([<span class="dv">5</span>]), <span class="ch">&#39;isArrayOfNumbers [5]&#39;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isArrayOfNumbers(<span class="dv">5</span>), <span class="ch">&#39;not isArrayOfNumbers 5&#39;</span>);
-<span class="co">// int array</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isArrayOfInts([<span class="dv">5</span>]), <span class="ch">&#39;isArrayOfInts [5]&#39;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isArrayOfInts([<span class="fl">5.2</span>]), <span class="ch">&#39;not isArrayOfInts [5.2]&#39;</span>);
-<span class="co">// string array</span>
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">true</span> === isArrayOfNumbers([<span class="dv">5</span>]), <span class="ch">&#39;isArrayOfNumbers [5]&#39;</span>);
-<span class="kw">console</span>.<span class="fu">assert</span>(<span class="kw">false</span> === isArrayOfNumbers([<span class="st">&quot;5&quot;</span>]), <span class="ch">&#39;not isArrayOfNumbers [&quot;5&quot;]&#39;</span>);</code></pre>
+// number
+console.assert(true === isNumber(5), &quot;isNumber 5&quot;);
+console.assert(false === isNumber(&quot;5&quot;), &#39;not isNumber &quot;5&quot;&#39;);
+// int
+console.assert(true === isNumber(5), &quot;isNumber 5&quot;);
+console.assert(false === isNumber(&quot;5&quot;), &#39;not isNumber &quot;5&quot;&#39;);
+// string
+console.assert(true === isString(&quot;5&quot;), &#39;isString &quot;5&quot;&#39;);
+console.assert(false === isString(5), &#39;not isString 5&#39;);
+// array
+console.assert(true === isArray([&quot;5&quot;]), &#39;isArray [&quot;5&quot;]&#39;);
+console.assert(false === isArray(5), &#39;not isArray 5&#39;);
+// number array
+console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
+console.assert(false === isArrayOfNumbers(5), &#39;not isArrayOfNumbers 5&#39;);
+// int array
+console.assert(true === isArrayOfInts([5]), &#39;isArrayOfInts [5]&#39;);
+console.assert(false === isArrayOfInts([5.2]), &#39;not isArrayOfInts [5.2]&#39;);
+// string array
+console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
+console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNumbers [&quot;5&quot;]&#39;);</code></pre>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
 </body>
 </html>
