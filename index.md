@@ -13,11 +13,86 @@ Group members:
 
 ## Week 1
 
-### Functions for checking data types
+### Types
+
+JavaScript is a _loosely_ typed or a _dynamic_ language:
+
+- Primitive datatypes:
+    - Boolean
+    - Null
+    - Undefined
+    - Number
+    - String
+    - Symbol (ECMAScript 6)
+- and Object
+
+### Variable hoisting
 
 ```javascript
-// Functions for typechecking
+var sum = 21;
 
+function alertSum() {
+    if (false) {
+        var sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();
+```
+
+Alerts `undefined`, not `42` or `21`!
+
+Why? Because the JavaScript compiler interprets the code as follows:
+```javascript
+var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();
+```
+
+### Equality
+
+In JavaScript, there is a big difference between the functions `==`and `===`. See some differences in action:
+
+```javascript
+// These return true:
+0     == "0"
+0     == ""
+false == "0"
+null  == undefined
+" "   == 0
+
+// These return false:
+""    == "0"
+false == "false"
+false == undefined
+false == null
+
+// However, all these return false:
+0     === "0"
+0     === ""
+false === "0"
+null  === undefined
+" "   === 0
+
+```
+
+### Functions for checking data types
+
+Here are some example functions for checking the types of values.
+
+```javascript
 function isNumber(a) {
     return (!isNaN(a) && typeof a === "number") ? true : false;
 }
@@ -83,53 +158,6 @@ console.assert(true === isArrayOfNumbers([5]), 'isArrayOfNumbers [5]');
 console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 ```
 
-### General guidelines & gotchas
-__Types__
-
-JavaScript is a _loosely_ typed or a _dynamic_ language:
-
-- Primitive datatypes:
-    - Boolean
-    - Null
-    - Undefined
-    - Number
-    - String
-    - Symbol (ECMAScript 6)
-- and Object
-
-__Variable Hoisting:__
-```javascript
-var sum = 21;
-
-function alertSum() {
-    if (false) {
-        var sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();
-```
-
-Alerts `undefined`, not `42` or `21`!
-
-Why? Because the JavaScript compiler interprets the code as follows:
-```javascript
-var sum = 21;
-
-function alertSum() {
-    var sum;
-
-    if (false) {
-        sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();
-```
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>

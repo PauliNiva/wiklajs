@@ -18,8 +18,10 @@
 <nav id="TOC">
 <ul>
 <li><a href="#week-1">Week 1</a><ul>
+<li><a href="#types">Types</a></li>
+<li><a href="#variable-hoisting">Variable hoisting</a></li>
+<li><a href="#equality">Equality</a></li>
 <li><a href="#functions-for-checking-data-types">Functions for checking data types</a></li>
-<li><a href="#general-guidelines-gotchas">General guidelines &amp; gotchas</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -32,10 +34,72 @@
 <li>niko &quot;aozi&quot; novitsky</li>
 </ul>
 <h2 id="week-1">Week 1</h2>
-<h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
-<pre class="javascript"><code>// Functions for typechecking
+<h3 id="types">Types</h3>
+<p>JavaScript is a <em>loosely</em> typed or a <em>dynamic</em> language:</p>
+<ul>
+<li>Primitive datatypes:
+<ul>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Number</li>
+<li>String</li>
+<li>Symbol (ECMAScript 6)</li>
+</ul></li>
+<li>and Object</li>
+</ul>
+<h3 id="variable-hoisting">Variable hoisting</h3>
+<pre class="javascript"><code>var sum = 21;
 
-function isNumber(a) {
+function alertSum() {
+    if (false) {
+        var sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
+<p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
+<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
+<h3 id="equality">Equality</h3>
+<p>In JavaScript, there is a big difference between the functions <code>==</code>and <code>===</code>. See some differences in action:</p>
+<pre class="javascript"><code>// These return true:
+0     == &quot;0&quot;
+0     == &quot;&quot;
+false == &quot;0&quot;
+null  == undefined
+&quot; &quot;   == 0
+
+// These return false:
+&quot;&quot;    == &quot;0&quot;
+false == &quot;false&quot;
+false == undefined
+false == null
+
+// However, all these return false:
+0     === &quot;0&quot;
+0     === &quot;&quot;
+false === &quot;0&quot;
+null  === undefined
+&quot; &quot;   === 0
+</code></pre>
+<h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
+<p>Here are some example functions for checking the types of values.</p>
+<pre class="javascript"><code>function isNumber(a) {
     return (!isNaN(a) &amp;&amp; typeof a === &quot;number&quot;) ? true : false;
 }
 
@@ -98,48 +162,6 @@ console.assert(false === isArrayOfInts([5.2]), &#39;not isArrayOfInts [5.2]&#39;
 // string array
 console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
 console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNumbers [&quot;5&quot;]&#39;);</code></pre>
-<h3 id="general-guidelines-gotchas">General guidelines &amp; gotchas</h3>
-<p><strong>Types</strong></p>
-<p>JavaScript is a <em>loosely</em> typed or a <em>dynamic</em> language:</p>
-<ul>
-<li>Primitive datatypes:
-<ul>
-<li>Boolean</li>
-<li>Null</li>
-<li>Undefined</li>
-<li>Number</li>
-<li>String</li>
-<li>Symbol (ECMAScript 6)</li>
-</ul></li>
-<li>and Object</li>
-</ul>
-<p><strong>Variable Hoisting:</strong></p>
-<pre class="javascript"><code>var sum = 21;
-
-function alertSum() {
-    if (false) {
-        var sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();</code></pre>
-<p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
-<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
-<pre class="javascript"><code>var sum = 21;
-
-function alertSum() {
-    var sum;
-
-    if (false) {
-        sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();</code></pre>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
