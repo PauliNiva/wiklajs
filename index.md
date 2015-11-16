@@ -166,6 +166,44 @@ console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 
 ### Functional vs imperative
 
+Officially, JavaScript is a multi-paradigm language: it allows for simple scripting as well as object-oriented programming, imperative as well as functional programming. Here we will focus on the two perhaps most opposing paradigms: functional versus imperative.
+
+From the traditional imperative paradigm, JavaScript has the common structures of `while` and `for`-loops, `if`-`else` -blocks, `switch`-cases and so on. However, with the advent of ECMAScript 6, lots of functional features have been brought in, including `map`, `every`, `let` and so on. For a comprehensive list, see for example [this](http://es6-features.org/) website!
+
+Specific functions are not the paradigm's defining features though. Let's go deeper with some examples:
+
+
+**Imperative approach**
+
+~~~{.javascript}
+var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+var even = function(a) {
+  var ret = []
+  for (var i=0; i<nums.length; i++) {
+    if (a[i] % 2 === 0) {
+      ret.push(a[i]);
+    }
+  }
+  return ret;
+}
+
+console.log(even(nums));
+~~~
+
+**Functional approach**
+
+~~~{.javascript}
+var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+var even = xs => xs.filter(x => x % 2 == 0)
+
+console.log(even(nums));
+~~~
+
+See, we can make JavaScript look more like Haskell than C!
+
+
 ### Closures
 
 ### Exceptions

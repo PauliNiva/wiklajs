@@ -172,6 +172,30 @@ console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNu
 <h2 id="week-2">Week 2</h2>
 <h3 id="algorithm-styles">Algorithm styles</h3>
 <h3 id="functional-vs-imperative">Functional vs imperative</h3>
+<p>Officially, JavaScript is a multi-paradigm language: it allows for simple scripting as well as object-oriented programming, imperative as well as functional programming. Here we will focus on the two perhaps most opposing paradigms: functional versus imperative.</p>
+<p>From the traditional imperative paradigm, JavaScript has the common structures of <code>while</code> and <code>for</code>-loops, <code>if</code>-<code>else</code> -blocks, <code>switch</code>-cases and so on. However, with the advent of ECMAScript 6, lots of functional features have been brought in, including <code>map</code>, <code>every</code>, <code>let</code> and so on. For a comprehensive list, see for example <a href="http://es6-features.org/">this</a> website!</p>
+<p>Specific functions are not the paradigm's defining features though. Let's go deeper with some examples:</p>
+<p><strong>Imperative approach</strong></p>
+<pre class="javascript"><code>var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+var even = function(a) {
+  var ret = []
+  for (var i=0; i&lt;nums.length; i++) {
+    if (a[i] % 2 === 0) {
+      ret.push(a[i]);
+    }
+  }
+  return ret;
+}
+
+console.log(even(nums));</code></pre>
+<p><strong>Functional approach</strong></p>
+<pre class="javascript"><code>var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+var even = xs =&gt; xs.filter(x =&gt; x % 2 == 0)
+
+console.log(even(nums));</code></pre>
+<p>See, we can make JavaScript look more like Haskell than C!</p>
 <h3 id="closures">Closures</h3>
 <h3 id="exceptions">Exceptions</h3>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
