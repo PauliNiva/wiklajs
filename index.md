@@ -205,12 +205,58 @@ See, we can make JavaScript look more like Haskell than C!
 
 All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.
 
-**TODO: improve this section. Not a lot of good content yet :(
-
-
-### Closures
+**TODO: improve this section. Not a lot of good content yet :(**
 
 ### Exceptions
+
+Runtime errors, more familiarly known as exceptions are errors that happen while the program is running.
+Exceptions can be handled with JavaScript's error handling, that is, with try statements.
+The try statement consists of a try block, which contains one or more statements, and at least
+one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br />
+
+1. try..catch<br />
+2. try..finally<br />
+3. try..catch..finally<br />
+
+A catch clause specifies what to do if an exception is thrown in the try block.
+If the try block does not succeed, that is, if any statement within the try block
+(or in a method called from within the block) throws an exception, control shifts
+to the catch clause. If no exception is thrown in the try block, the catch clause is skipped.
+The finally clause always executes, regardless of whether or not an exception was thrown or caught.
+It executes after the try block and catch clause or clauses but before any statements following the try statement.
+Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's
+catch clause is entered.
+
+When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown.
+One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not
+part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate
+catch clause is entered when the specified exception is thrown. When an exception occurs, control is transferred
+to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch
+clause is found, control transfers to that one.
+
+ECMAScript specifies six different kinds of exceptions.<br />
+
+1. EvalError, not in use, only included for backward compatibility's sake.<br />
+2. RangeError, if numerical value exceeds its range.<br />
+3. ReferenceError, for invalid references.<br />
+4. SyntaxError, for syntactical errors.<br />
+5. TypeError, if type deviates from expected type.<br />
+6. URIError, if global URI handling method are used improperly.<br />
+
+When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified
+by the throw statement. This identifier can be used to get information about the thrown exception.
+This identifier is local to the catch clause. That is, it is created when the catch clause is entered, and after it
+finishes executing, the identifier is not available anymore.
+
+The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements
+following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown.
+If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception.
+One can use the finally clause to make scripts fail gracefully when an exception occurs.
+
+If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of
+any return statements in the try and catch blocks.
+
+### Closures
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>

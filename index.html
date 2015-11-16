@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header>
@@ -26,8 +26,8 @@
 <li><a href="#week-2">Week 2</a><ul>
 <li><a href="#algorithm-styles">Algorithm styles</a></li>
 <li><a href="#functional-vs-imperative">Functional vs imperative</a></li>
-<li><a href="#closures">Closures</a></li>
 <li><a href="#exceptions">Exceptions</a></li>
+<li><a href="#closures">Closures</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -197,9 +197,29 @@ var even = xs =&gt; xs.filter(x =&gt; x % 2 == 0)
 console.log(even(nums));</code></pre>
 <p>See, we can make JavaScript look more like Haskell than C!</p>
 <p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.</p>
-<p>**TODO: improve this section. Not a lot of good content yet :(</p>
-<h3 id="closures">Closures</h3>
+<p><strong>TODO: improve this section. Not a lot of good content yet :(</strong></p>
 <h3 id="exceptions">Exceptions</h3>
+<p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br /></p>
+<ol type="1">
+<li>try..catch<br /></li>
+<li>try..finally<br /></li>
+<li>try..catch..finally<br /></li>
+</ol>
+<p>A catch clause specifies what to do if an exception is thrown in the try block. If the try block does not succeed, that is, if any statement within the try block (or in a method called from within the block) throws an exception, control shifts to the catch clause. If no exception is thrown in the try block, the catch clause is skipped. The finally clause always executes, regardless of whether or not an exception was thrown or caught. It executes after the try block and catch clause or clauses but before any statements following the try statement. Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's catch clause is entered.</p>
+<p>When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown. One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate catch clause is entered when the specified exception is thrown. When an exception occurs, control is transferred to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch clause is found, control transfers to that one.</p>
+<p>ECMAScript specifies six different kinds of exceptions.<br /></p>
+<ol type="1">
+<li>EvalError, not in use, only included for backward compatibility's sake.<br /></li>
+<li>RangeError, if numerical value exceeds its range.<br /></li>
+<li>ReferenceError, for invalid references.<br /></li>
+<li>SyntaxError, for syntactical errors.<br /></li>
+<li>TypeError, if type deviates from expected type.<br /></li>
+<li>URIError, if global URI handling method are used improperly.<br /></li>
+</ol>
+<p>When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified by the throw statement. This identifier can be used to get information about the thrown exception. This identifier is local to the catch clause. That is, it is created when the catch clause is entered, and after it finishes executing, the identifier is not available anymore.</p>
+<p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
+<p>If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of any return statements in the try and catch blocks.</p>
+<h3 id="closures">Closures</h3>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
