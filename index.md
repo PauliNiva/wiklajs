@@ -160,6 +160,15 @@ console.assert(true === isArrayOfNumbers([5]), 'isArrayOfNumbers [5]');
 console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 ```
 
+## Week 2
+
+### Algorithm styles
+
+### Functional vs imperative
+
+### Closures
+
+### Exceptions
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
