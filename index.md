@@ -203,6 +203,10 @@ console.log(even(nums));
 
 See, we can make JavaScript look more like Haskell than C!
 
+All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.
+
+**TODO: improve this section. Not a lot of good content yet :(
+
 
 ### Closures
 
