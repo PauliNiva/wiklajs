@@ -261,16 +261,18 @@ any return statements in the try and catch blocks.
 Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided. 
 
 Here is a simple function that uses a closure
+
 ```javascript
 function sayHello(name) {
     var text = 'Hello ' + name; // Local variable
     var sayAlert = function() { alert(text); }
     return sayAlert;
 }
-´´´
 
 var say2 = sayHello('Arto');
 say2(); // alerts "Hello Arto"
+
+```
 
 So what exactly is going on here? We're first defining a new variable, we use the sayHello function with a parameter.
 
@@ -299,13 +301,14 @@ var sayNumber = say666();
 sayNumber(); // alerts 667
 sayNumber(); // alerts 668
 sayNumber(); // alerts 669
-´´´
+```
 
 Each call to the sayNumber object we defined, increments the result by one, the old result is also stored. So it is clear that reference to the original environment is kept, and the values are not just copied inside the closure.
 
 This means that when we increment the number inside the closure, it's not stored in the closure, rather the closure accesses the parent function, and stores the number there, where it then again accesses it during the next call.
 
 Now here's somethign a bit more interesting, what if we define global closure functions, inside a function?
+
 ```javascript
 function setupSomeGlobals() {
     // Local variable that ends up within closure
@@ -317,7 +320,8 @@ function setupSomeGlobals() {
 }
 
 setupSomeGlobals();
-´´´
+```
+
 Right now we're not even instantiating an object, we're simply calling a function that defines it's variable, and few global functions.
 
 So lets poke the stuff inside the function and see what happens!
@@ -330,7 +334,7 @@ setupSomeGlobals();
 gAlertNumber(); //prints 666!
 gSetNumber(5);
 gAlertNumber(); //prints 5
-´´´
+```
 
 All of these functions refer to the exact same closure!
 And when we call the original function again, the values are reset! Unless....
@@ -339,7 +343,7 @@ And when we call the original function again, the values are reset! Unless....
 ```javascript
 var oldIncrease = gIncreaseNumber;
 var oldValue = gAlertNumber;
-´´´
+```
 
 We store the reference into a new variable!
 
@@ -349,12 +353,13 @@ oldValue(); //Prints 5
 oldIncrease();
 oldValue(); //Prints 6!
 gAlertNumber(); //Prints 666!
-´´
+```
 
 So even though we defined global functions that all refer to the exact same closure, if we store a reference to these functions, they execute in the environemnt they were defined in! Even after the function terminates, even after we reset the closure where the global functions point to, if we store a reference to a function, it still executes within the environment that was in place when we define it! So the reference still exists there somewhere!
 
 This has some unfortunate implications, that are still interesting to consider. 
 
+```javascript
 function makeList(list) {
     var result = [];
     for (var i = 0; i < list.length; i++) {
@@ -370,6 +375,8 @@ var weird = makeList([1,2,3,4,5]);
 for (var j = 0; j < weird.length; j++) {
     weird[j]();
 }
+```
+
 
 Looking at this, you would expect the function to generate a list that prints the item number on the screen for every item on the list. However what you get might be surprising.....
 
@@ -377,14 +384,20 @@ The function actually prints "item4 undefined" five times......Why? Because clos
 
 So when we first generate the list, we loopthrough the list we give as a parameter;
 
+
+```javascript
     for (var i = 0; i < list.length; i++) {
         var item = 'item' + i;
         result.push( function() {alert(item + ' ' + list[i])} );
     }
-    
+```   
+
 Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops. But thigns go weird with closures, we use a closure in the actual return function.
 
+
+```javascript
     result.push( function() {alert(item + ' ' + list[i])} );
+```
 
 So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the refenrence environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.
 
