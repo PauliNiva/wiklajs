@@ -246,11 +246,11 @@ console.log(even(nums));</code></pre>
 <p>See, we can make JavaScript look more like Haskell than C!</p>
 <p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base. Another interesting effect of using functional approach, arrow notation and lambdas is that we do not explicitly define return arrays or any other state at all; the code is <em>pure</em>.</p>
 <h3 id="exceptions">Exceptions</h3>
-<p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br /></p>
+<p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement</p>
 <ol type="1">
-<li>try..catch<br /></li>
-<li>try..finally<br /></li>
-<li>try..catch..finally<br /></li>
+<li>try..catch</li>
+<li>try..finally</li>
+<li>try..catch..finally</li>
 </ol>
 <pre class="javascript"><code>try {
     Block of code to try
@@ -323,14 +323,14 @@ catch (ex) {
     // statements to handle any unspecified exceptions
     logMyErrors(e); // pass exception object to error handler
 }</code></pre>
-<p>ECMAScript specifies six different kinds of exceptions.<br /></p>
+<p>ECMAScript specifies six different kinds of exceptions.</p>
 <ol type="1">
-<li>EvalError, not in use, only included for backward compatibility's sake.<br /></li>
-<li>RangeError, if numerical value exceeds its range.<br /></li>
-<li>ReferenceError, for invalid references.<br /></li>
-<li>SyntaxError, for syntactical errors.<br /></li>
-<li>TypeError, if type deviates from expected type.<br /></li>
-<li>URIError, if global URI handling method are used improperly.<br /></li>
+<li>EvalError, not in use, only included for backward compatibility's sake.</li>
+<li>RangeError, if numerical value exceeds its range.</li>
+<li>ReferenceError, for invalid references.</li>
+<li>SyntaxError, for syntactical errors.</li>
+<li>TypeError, if type deviates from expected type.</li>
+<li>URIError, if global URI handling method are used improperly.</li>
 </ol>
 <p>When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified by the throw statement. This identifier can be used to get information about the thrown exception. This identifier is local to the catch clause. That is, it is created when the catch clause is entered, and after it finishes executing, the identifier is not available anymore.</p>
 <p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>

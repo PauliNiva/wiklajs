@@ -284,11 +284,11 @@ All joking aside, it is wonderful that JavaScript has support for both styles. T
 Runtime errors, more familiarly known as exceptions are errors that happen while the program is running.
 Exceptions can be handled with JavaScript's error handling, that is, with try statements.
 The try statement consists of a try block, which contains one or more statements, and at least
-one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br />
+one catch clause or a finally clause, or both. That is, there are three forms of the try statement
 
-1. try..catch<br />
-2. try..finally<br />
-3. try..catch..finally<br />
+1. try..catch
+2. try..finally
+3. try..catch..finally
 
 ```javascript
 try {
@@ -392,14 +392,14 @@ try {
 }
 ```
 
-ECMAScript specifies six different kinds of exceptions.<br />
+ECMAScript specifies six different kinds of exceptions.
 
-1. EvalError, not in use, only included for backward compatibility's sake.<br />
-2. RangeError, if numerical value exceeds its range.<br />
-3. ReferenceError, for invalid references.<br />
-4. SyntaxError, for syntactical errors.<br />
-5. TypeError, if type deviates from expected type.<br />
-6. URIError, if global URI handling method are used improperly.<br />
+1. EvalError, not in use, only included for backward compatibility's sake.
+2. RangeError, if numerical value exceeds its range.
+3. ReferenceError, for invalid references.
+4. SyntaxError, for syntactical errors.
+5. TypeError, if type deviates from expected type.
+6. URIError, if global URI handling method are used improperly.
 
 When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified
 by the throw statement. This identifier can be used to get information about the thrown exception.
