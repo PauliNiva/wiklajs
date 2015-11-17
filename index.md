@@ -477,11 +477,11 @@ sayNumber(); // alerts 668
 sayNumber(); // alerts 669
 ```
 
-Each call to the sayNumber object we defined, increments the result by one, the old result is also stored. So it is clear that reference to the original environment is kept, and the values are not just copied inside the closure.
+Each call to the `sayNumber` object we defined, increments the result by one, the old result is also stored. So it is clear that reference to the original environment is kept, and the values are not just copied inside the closure.
 
 This means that when we increment the number inside the closure, it's not stored in the closure, rather the closure accesses the parent function, and stores the number there, where it then again accesses it during the next call.
 
-Now here's somethign a bit more interesting, what if we define global closure functions, inside a function?
+Now here's something a bit more interesting, what if we define global closure functions, inside a function?
 
 ```javascript
 function setupSomeGlobals() {
@@ -529,7 +529,7 @@ oldValue(); //Prints 6!
 gAlertNumber(); //Prints 666!
 ```
 
-So even though we defined global functions that all refer to the exact same closure, if we store a reference to these functions, they execute in the environemnt they were defined in! Even after the function terminates, even after we reset the closure where the global functions point to, if we store a reference to a function, it still executes within the environment that was in place when we define it! So the reference still exists there somewhere!
+So even though we defined global functions that all refer to the exact same closure, if we store a reference to these functions, they execute in the environment they were defined in! Even after the function terminates, even after we reset the closure where the global functions point to, if we store a reference to a function, it still executes within the environment that was in place when we define it! So the reference still exists there somewhere!
 
 This has some unfortunate implications, that are still interesting to consider.
 
