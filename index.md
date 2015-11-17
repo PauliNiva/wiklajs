@@ -258,7 +258,7 @@ any return statements in the try and catch blocks.
 
 ### Closures
 
-Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided. 
+Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
 
 Here is a simple function that uses a closure
 
@@ -314,9 +314,9 @@ function setupSomeGlobals() {
     // Local variable that ends up within closure
     var num = 666;
     // Store some references to functions as global variables
-    gAlertNumber = function() { alert(num); }
+    gAlertNumber    = function() { alert(num); }
     gIncreaseNumber = function() { num++; }
-    gSetNumber = function(x) { num = x; }
+    gSetNumber      = function(x) { num = x; }
 }
 
 setupSomeGlobals();
@@ -357,7 +357,7 @@ gAlertNumber(); //Prints 666!
 
 So even though we defined global functions that all refer to the exact same closure, if we store a reference to these functions, they execute in the environemnt they were defined in! Even after the function terminates, even after we reset the closure where the global functions point to, if we store a reference to a function, it still executes within the environment that was in place when we define it! So the reference still exists there somewhere!
 
-This has some unfortunate implications, that are still interesting to consider. 
+This has some unfortunate implications, that are still interesting to consider.
 
 ```javascript
 function makeList(list) {
@@ -386,17 +386,17 @@ So when we first generate the list, we loopthrough the list we give as a paramet
 
 
 ```javascript
-    for (var i = 0; i < list.length; i++) {
-        var item = 'item' + i;
-        result.push( function() {alert(item + ' ' + list[i])} );
-    }
+for (var i = 0; i < list.length; i++) {
+    var item = 'item' + i;
+    result.push( function() {alert(item + ' ' + list[i])} );
+}
 ```   
 
 Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops. But thigns go weird with closures, we use a closure in the actual return function.
 
 
 ```javascript
-    result.push( function() {alert(item + ' ' + list[i])} );
+result.push( function() {alert(item + ' ' + list[i])} );
 ```
 
 So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the refenrence environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.
