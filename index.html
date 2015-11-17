@@ -419,17 +419,17 @@ for (var j = 0; j &lt; weird.length; j++) {
     weird[j]();
 }</code></pre>
 <p>Looking at this, you would expect the function to generate a list that prints the item number on the screen for every item on the list. However what you get might be surprising.....</p>
-<p>The function actually prints &quot;item4 undefined&quot; five times......Why? Because closures are evaluated in the environment they were defined in.</p>
+<p>The function actually prints <code>item4 undefined</code> five times......Why? Because closures are evaluated in the environment they were defined in.</p>
 <p>So when we first generate the list, we loopthrough the list we give as a parameter;</p>
 <pre class="javascript"><code>for (var i = 0; i &lt; list.length; i++) {
     var item = &#39;item&#39; + i;
     result.push( function() {alert(item + &#39; &#39; + list[i])} );
 }</code></pre>
-<p>Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.</p>
+<p>Thus far pretty easy, however we then use the <code>i</code> variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.</p>
 <pre class="javascript"><code>result.push( function() {alert(item + &#39; &#39; + list[i])} );</code></pre>
-<p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the refenrence environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
-<p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable i, which we used for our loop, is actually 4, because we iterated through the list!</p>
-<p>So it simply sees that i is 4 and since nothing changes it, everything is evaluated to item4 undefined.</p>
+<p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the reference environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
+<p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable <code>i</code>, which we used for our loop, is actually 4, because we iterated through the list!</p>
+<p>So it simply sees that <code>i = 4</code> and since nothing changes it, everything is evaluated to <code>item4</code> undefined.</p>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>

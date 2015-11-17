@@ -549,7 +549,7 @@ for (var j = 0; j < weird.length; j++) {
 
 Looking at this, you would expect the function to generate a list that prints the item number on the screen for every item on the list. However what you get might be surprising.....
 
-The function actually prints "item4 undefined" five times......Why? Because closures are evaluated in the environment they were defined in.
+The function actually prints `item4 undefined` five times......Why? Because closures are evaluated in the environment they were defined in.
 
 So when we first generate the list, we loopthrough the list we give as a parameter;
 
@@ -561,18 +561,18 @@ for (var i = 0; i < list.length; i++) {
 }
 ```
 
-Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.
+Thus far pretty easy, however we then use the `i` variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.
 
 
 ```javascript
 result.push( function() {alert(item + ' ' + list[i])} );
 ```
 
-So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the refenrence environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.
+So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the reference environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.
 
-We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable i, which we used for our loop, is actually 4, because we iterated through the list!
+We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable `i`, which we used for our loop, is actually 4, because we iterated through the list!
 
-So it simply sees that i is 4 and since nothing changes it, everything is evaluated to item4 undefined.
+So it simply sees that `i = 4` and since nothing changes it, everything is evaluated to `item4` undefined.
 
 
 
