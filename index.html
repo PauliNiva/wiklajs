@@ -198,7 +198,7 @@ var even = xs =&gt; xs.filter(x =&gt; x % 2 == 0)
 console.log(even(nums));</code></pre>
 <p>Here we define <code>even</code> with arrow notation as a function that is essentially a lambda: input values xs tend towards a filtered version of xs, where the filter criterion is a lambda of divisibility by two.</p>
 <p>See, we can make JavaScript look more like Haskell than C!</p>
-<p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.</p>
+<p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base. Another interesting effect of using functional approach, arrow notation and lambdas is that we do not explicitly define return arrays or any other state at all; the code is <em>pure</em>.</p>
 <h3 id="exceptions">Exceptions</h3>
 <p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br /></p>
 <ol type="1">
