@@ -218,6 +218,39 @@ one catch clause or a finally clause, or both. That is, there are three forms of
 2. try..finally<br />
 3. try..catch..finally<br />
 
+```javascript
+try {
+    Block of code to try
+}
+catch(err) {
+    Block of code to handle errors
+} 
+finally {
+    Block of code to be executed regardless of the try..catch result
+}
+```
+```javascript
+function myFunction() {
+    var message, x;
+    message = document.getElementById("message");
+    message.innerHTML = "";
+    x = document.getElementById("demo").value;
+    try { 
+        if(x == "") throw "is empty";
+        if(isNaN(x)) throw "is not a number";
+        x = Number(x);
+        if(x > 10) throw "is too high";
+        if(x < 5) throw "is too low";
+    }
+    catch(err) {
+        message.innerHTML = "Error: " + err + ".";
+    }
+    finally {
+        document.getElementById("demo").value = "";
+    }
+}
+```
+
 A catch clause specifies what to do if an exception is thrown in the try block.
 If the try block does not succeed, that is, if any statement within the try block
 (or in a method called from within the block) throws an exception, control shifts
@@ -226,7 +259,23 @@ The finally clause always executes, regardless of whether or not an exception wa
 It executes after the try block and catch clause or clauses but before any statements following the try statement.
 Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's
 catch clause is entered.
+```javascript
+try {
+  try {
+    throw new Error("inner");
+  }
+  finally {
+    console.log("finally");
+  }
+}
+catch (ex) {
+  console.error("outer", ex.message);
+}
 
+// Output:
+// "finally"
+// "outer" "inner"
+```
 When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown.
 One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not
 part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate
@@ -234,6 +283,38 @@ catch clause is entered when the specified exception is thrown. When an exceptio
 to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch
 clause is found, control transfers to that one.
 
+here is how to do implement the same conditional catch clauses using only
+simple JavaScript that does not conform to the ECMAScript specification:
+```javascript
+try {
+    myroutine(); // may throw three types of exceptions
+} catch (e if e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+} catch (e if e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+} catch (e if e instanceof EvalError) {
+    // statements to handle EvalError exceptions
+} catch (e) {
+    // statements to handle any unspecified exceptions
+    logMyErrors(e); // pass exception object to error handler
+}
+```
+here is how to do implement the same conditional catch clauses using only
+simple JavaScript conforming to the ECMAScript specification:
+```javascript
+try {
+    myroutine(); // may throw three types of exceptions
+} catch (e if e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+} catch (e if e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+} catch (e if e instanceof EvalError) {
+    // statements to handle EvalError exceptions
+} catch (e) {
+    // statements to handle any unspecified exceptions
+    logMyErrors(e); // pass exception object to error handler
+}
+```
 ECMAScript specifies six different kinds of exceptions.<br />
 
 1. EvalError, not in use, only included for backward compatibility's sake.<br />
@@ -258,7 +339,19 @@ any return statements in the try and catch blocks.
 
 ### Closures
 
+<<<<<<< Updated upstream
 Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided. 
+=======
+Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
+>>>>>>> origin/gh-pages
+=======
+Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
+>>>>>>> origin/gh-pages
+>>>>>>> Stashed changes
 
 Here is a simple function that uses a closure
 

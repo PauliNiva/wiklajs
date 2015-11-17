@@ -205,8 +205,77 @@ console.log(even(nums));</code></pre>
 <li>try..finally<br /></li>
 <li>try..catch..finally<br /></li>
 </ol>
+<pre class="javascript"><code>try {
+    Block of code to try
+}
+catch(err) {
+    Block of code to handle errors
+} 
+finally {
+    Block of code to be executed regardless of the try..catch result
+}</code></pre>
+<pre class="javascript"><code>function myFunction() {
+    var message, x;
+    message = document.getElementById(&quot;message&quot;);
+    message.innerHTML = &quot;&quot;;
+    x = document.getElementById(&quot;demo&quot;).value;
+    try { 
+        if(x == &quot;&quot;) throw &quot;is empty&quot;;
+        if(isNaN(x)) throw &quot;is not a number&quot;;
+        x = Number(x);
+        if(x &gt; 10) throw &quot;is too high&quot;;
+        if(x &lt; 5) throw &quot;is too low&quot;;
+    }
+    catch(err) {
+        message.innerHTML = &quot;Error: &quot; + err + &quot;.&quot;;
+    }
+    finally {
+        document.getElementById(&quot;demo&quot;).value = &quot;&quot;;
+    }
+}</code></pre>
 <p>A catch clause specifies what to do if an exception is thrown in the try block. If the try block does not succeed, that is, if any statement within the try block (or in a method called from within the block) throws an exception, control shifts to the catch clause. If no exception is thrown in the try block, the catch clause is skipped. The finally clause always executes, regardless of whether or not an exception was thrown or caught. It executes after the try block and catch clause or clauses but before any statements following the try statement. Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's catch clause is entered.</p>
+<pre class="javascript"><code>try {
+  try {
+    throw new Error(&quot;inner&quot;);
+  }
+  finally {
+    console.log(&quot;finally&quot;);
+  }
+}
+catch (ex) {
+  console.error(&quot;outer&quot;, ex.message);
+}
+
+// Output:
+// &quot;finally&quot;
+// &quot;outer&quot; &quot;inner&quot;</code></pre>
 <p>When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown. One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate catch clause is entered when the specified exception is thrown. When an exception occurs, control is transferred to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch clause is found, control transfers to that one.</p>
+<p>here is how to do implement the same conditional catch clauses using only simple JavaScript that does not conform to the ECMAScript specification:</p>
+<pre class="javascript"><code>try {
+    myroutine(); // may throw three types of exceptions
+} catch (e if e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+} catch (e if e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+} catch (e if e instanceof EvalError) {
+    // statements to handle EvalError exceptions
+} catch (e) {
+    // statements to handle any unspecified exceptions
+    logMyErrors(e); // pass exception object to error handler
+}</code></pre>
+<p>here is how to do implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
+<pre class="javascript"><code>try {
+    myroutine(); // may throw three types of exceptions
+} catch (e if e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+} catch (e if e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+} catch (e if e instanceof EvalError) {
+    // statements to handle EvalError exceptions
+} catch (e) {
+    // statements to handle any unspecified exceptions
+    logMyErrors(e); // pass exception object to error handler
+}</code></pre>
 <p>ECMAScript specifies six different kinds of exceptions.<br /></p>
 <ol type="1">
 <li>EvalError, not in use, only included for backward compatibility's sake.<br /></li>
@@ -220,7 +289,6 @@ console.log(even(nums));</code></pre>
 <p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
 <p>If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of any return statements in the try and catch blocks.</p>
 <h3 id="closures">Closures</h3>
-<p>Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.</p>
 <p>Here is a simple function that uses a closure</p>
 <pre class="javascript"><code>function sayHello(name) {
     var text = &#39;Hello &#39; + name; // Local variable
