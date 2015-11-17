@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header>
@@ -34,10 +34,10 @@
 <p>Simple site for submitting answers for the exercises on the course &quot;Ohjelmointitekniikka: JavaScript&quot;.</p>
 <p>Group members:</p>
 <ul>
-<li>veeti &quot;walther&quot; haapsamo</li>
-<li>pauli &quot;iluaP&quot; niva</li>
-<li>ville &quot;vvainio&quot; vainio</li>
-<li>niko &quot;aozi&quot; novitsky</li>
+<li>Veeti &quot;walther&quot; Haapsamo</li>
+<li>Pauli &quot;iluaP&quot; Niva</li>
+<li>Ville &quot;vvainio&quot; Vainio</li>
+<li>Niko &quot;aozi&quot; Novitsky</li>
 </ul>
 <h2 id="week-1">Week 1</h2>
 <h3 id="types">Types</h3>
@@ -289,6 +289,7 @@ catch (ex) {
 <p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
 <p>If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of any return statements in the try and catch blocks.</p>
 <h3 id="closures">Closures</h3>
+<p>Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided.</p>
 <p>Here is a simple function that uses a closure</p>
 <pre class="javascript"><code>function sayHello(name) {
     var text = &#39;Hello &#39; + name; // Local variable
