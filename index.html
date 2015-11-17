@@ -187,10 +187,11 @@ var total = length(&#39;Hello&#39;) + length(null);</code></pre>
  * @param {String} y
  * @return {Boolean}
  */
-function (x, y) {
+function match(x, y) {
     return x === y;
 }</code></pre>
-<p>An example of function for getting the nth Fibonacci number by looping:</p>
+<p>Same functionalities can be written in several ways, next is an example for getting the nth Fibonacci number.</p>
+<p>Utilizing a loop:</p>
 <pre><code>function fibonacci(n) {
     var a = 0, b = 1, f = 1;
     for(var i = 2; i &lt;= n; i++) {
@@ -203,14 +204,14 @@ function (x, y) {
 
 &gt; fibonacci(12)
 144</code></pre>
-<p>Same algorithm written as a recursive function:</p>
+<p>As a recursive function:</p>
 <pre><code>function fibonacci(n){
     return n &lt;= 1 ? n : (fibonacci(n-1) + fibonacci (n-2));
 }
 
 &gt; fibonacci(12)
 144</code></pre>
-<p>All in all, JavaScript leaves much of the responsibility to the programmer. It is therefore a very liberal language - there are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.</p>
+<p>All in all, JavaScript is a very liberal language and leaves much of the responsibility to the programmer. There are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.</p>
 <p>Links:</p>
 <p><a href="https://github.com/mgechev/javascript-algorithms">JavaScript implementation of different computer science algorithms.</a></p>
 <p><a href="[https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/">Flow, a new static type checker for JavaScript</a></p>

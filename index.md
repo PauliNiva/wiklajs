@@ -188,12 +188,14 @@ When writing algorithms in JavaScript, functions should be kept short to increas
  * @param {String} y
  * @return {Boolean}
  */
-function (x, y) {
+function match(x, y) {
     return x === y;
 }
 ```
 
-An example of function for getting the nth Fibonacci number by looping:
+Same functionalities can be written in several ways, next is an example for getting the nth Fibonacci number.
+
+Utilizing a loop:
 
 ```
 function fibonacci(n) {
@@ -210,7 +212,7 @@ function fibonacci(n) {
 144
 ```
 
-Same algorithm written as a recursive function:
+As a recursive function:
 ```
 function fibonacci(n){
     return n <= 1 ? n : (fibonacci(n-1) + fibonacci (n-2));
@@ -220,7 +222,7 @@ function fibonacci(n){
 144
 ```
 
-All in all, JavaScript leaves much of the responsibility to the programmer. It is therefore a very liberal language - there are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.
+All in all, JavaScript is a very liberal language and leaves much of the responsibility to the programmer. There are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.
 
 Links:
 
