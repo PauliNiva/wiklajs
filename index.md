@@ -162,7 +162,71 @@ console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 
 ## Week 2
 
-### Algorithm styles
+### Algorithms & programming styles
+
+Algorithms can be written in JavaScript just like with any other programming language [1]. However, due to the dynamic nature of JavaScript (as seen on Week 1), type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.
+
+Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking. There are several tools and libraries for doing this, such as [Flow](https://www.google.fi/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CCYQFjABahUKEwi42reenZfJAhUF3iwKHf2EA60&url=http%3A%2F%2Fflowtype.org%2F&usg=AFQjCNFTj0tMft6KizAeNnJ8EG_WBy2LWQ&sig2=n5CFzD5i8lukElTEbmcJDQ) - a static type checker by Facebook which is designed to find type errors.
+
+An example of a function that would normally result in a crash when executing:
+```
+function length(x) {
+    return x.length;
+}
+
+var total = length('Hello') + length(null);
+```
+Flow would catch this error at compile time and point out that `x` can be null (so its length property should not be accessed). [2]
+
+The benefits of dynamic typing are immense and often overcome the aforementioned problems. Dynamic typing results in more concise & less verbose code, enables easy use of "hacks" like duck-typing and monkey-patching, and makes it easier to write generic code.
+
+When writing algorithms in JavaScript, functions should be kept short to increase legibility and to reduce the need of tracking different variable types. Declaring the types in comments is often used to describe the types of arguments passed:
+
+```
+/*
+ * @param {String} x
+ * @param {String} y
+ * @return {Boolean}
+ */
+function (x, y) {
+    return x === y;
+}
+```
+
+An example of function for getting the nth Fibonacci number by looping:
+
+```
+function fibonacci(n) {
+    var a = 0, b = 1, f = 1;
+    for(var i = 2; i <= n; i++) {
+        f = a + b;
+        a = b;
+        b = f;
+    }
+    return f;
+}
+
+> fibonacci(12)
+144
+```
+
+Same algorithm written as a recursive function:
+```
+function fibonacci(n){
+    return n <= 1 ? n : (fibonacci(n-1) + fibonacci (n-2));
+}
+
+> fibonacci(12)
+144
+```
+
+All in all, JavaScript leaves much of the responsibility to the programmer. It is therefore a very liberal language - there are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.
+
+Links:
+
+[JavaScript implementation of different computer science algorithms.](https://github.com/mgechev/javascript-algorithms)
+
+[Flow, a new static type checker for JavaScript]([https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/)
 
 ### Functional vs imperative
 
@@ -489,7 +553,7 @@ for (var i = 0; i < list.length; i++) {
     var item = 'item' + i;
     result.push( function() {alert(item + ' ' + list[i])} );
 }
-```   
+```
 
 Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.
 

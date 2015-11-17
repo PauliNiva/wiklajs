@@ -24,7 +24,7 @@
 <li><a href="#functions-for-checking-data-types">Functions for checking data types</a></li>
 </ul></li>
 <li><a href="#week-2">Week 2</a><ul>
-<li><a href="#algorithm-styles">Algorithm styles</a></li>
+<li><a href="#algorithms-programming-styles">Algorithms &amp; programming styles</a></li>
 <li><a href="#functional-vs-imperative">Functional vs imperative</a></li>
 <li><a href="#exceptions">Exceptions</a></li>
 <li><a href="#closures">Closures</a></li>
@@ -170,7 +170,50 @@ console.assert(false === isArrayOfInts([5.2]), &#39;not isArrayOfInts [5.2]&#39;
 console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
 console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNumbers [&quot;5&quot;]&#39;);</code></pre>
 <h2 id="week-2">Week 2</h2>
-<h3 id="algorithm-styles">Algorithm styles</h3>
+<h3 id="algorithms-programming-styles">Algorithms &amp; programming styles</h3>
+<p>Algorithms can be written in JavaScript just like with any other programming language [1]. However, due to the dynamic nature of JavaScript (as seen on Week 1), type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.</p>
+<p>Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking. There are several tools and libraries for doing this, such as <a href="https://www.google.fi/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;cad=rja&amp;uact=8&amp;ved=0CCYQFjABahUKEwi42reenZfJAhUF3iwKHf2EA60&amp;url=http%3A%2F%2Fflowtype.org%2F&amp;usg=AFQjCNFTj0tMft6KizAeNnJ8EG_WBy2LWQ&amp;sig2=n5CFzD5i8lukElTEbmcJDQ">Flow</a> - a static type checker by Facebook which is designed to find type errors.</p>
+<p>An example of a function that would normally result in a crash when executing:</p>
+<pre><code>function length(x) {
+    return x.length;
+}
+
+var total = length(&#39;Hello&#39;) + length(null);</code></pre>
+<p>Flow would catch this error at compile time and point out that <code>x</code> can be null (so its length property should not be accessed). [2]</p>
+<p>The benefits of dynamic typing are immense and often overcome the aforementioned problems. Dynamic typing results in more concise &amp; less verbose code, enables easy use of &quot;hacks&quot; like duck-typing and monkey-patching, and makes it easier to write generic code.</p>
+<p>When writing algorithms in JavaScript, functions should be kept short to increase legibility and to reduce the need of tracking different variable types. Declaring the types in comments is often used to describe the types of arguments passed:</p>
+<pre><code>/*
+ * @param {String} x
+ * @param {String} y
+ * @return {Boolean}
+ */
+function (x, y) {
+    return x === y;
+}</code></pre>
+<p>An example of function for getting the nth Fibonacci number by looping:</p>
+<pre><code>function fibonacci(n) {
+    var a = 0, b = 1, f = 1;
+    for(var i = 2; i &lt;= n; i++) {
+        f = a + b;
+        a = b;
+        b = f;
+    }
+    return f;
+}
+
+&gt; fibonacci(12)
+144</code></pre>
+<p>Same algorithm written as a recursive function:</p>
+<pre><code>function fibonacci(n){
+    return n &lt;= 1 ? n : (fibonacci(n-1) + fibonacci (n-2));
+}
+
+&gt; fibonacci(12)
+144</code></pre>
+<p>All in all, JavaScript leaves much of the responsibility to the programmer. It is therefore a very liberal language - there are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.</p>
+<p>Links:</p>
+<p><a href="https://github.com/mgechev/javascript-algorithms">JavaScript implementation of different computer science algorithms.</a></p>
+<p><a href="[https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/">Flow, a new static type checker for JavaScript</a></p>
 <h3 id="functional-vs-imperative">Functional vs imperative</h3>
 <p>Officially, JavaScript is a multi-paradigm language: it allows for simple scripting as well as object-oriented programming, imperative as well as functional programming. Here we will focus on the two perhaps most opposing paradigms: functional versus imperative.</p>
 <p>From the traditional imperative paradigm, JavaScript has the common structures of <code>while</code> and <code>for</code>-loops, <code>if</code>-<code>else</code> -blocks, <code>switch</code>-cases and so on. However, with the advent of ECMAScript 6, lots of functional features have been brought in, including <code>map</code>, <code>every</code>, <code>let</code> and so on. For a comprehensive list, see for example <a href="http://es6-features.org/">this</a> website!</p>
