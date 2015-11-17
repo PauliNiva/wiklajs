@@ -191,6 +191,8 @@ var even = function(a) {
 console.log(even(nums));
 ~~~
 
+Here we have a list of `nums`, integers from 1 to 10. We define `even`, a function that accumulates a list of return values by going through all the elements of the input list and checking if the number has a remainder of 0 when divided by 2. At the end, the `ret` list is returned.
+
 **Functional approach**
 
 ~~~{.javascript}
@@ -201,11 +203,11 @@ var even = xs => xs.filter(x => x % 2 == 0)
 console.log(even(nums));
 ~~~
 
+Here we define `even` with arrow notation as a function that is essentially a lambda: input values xs tend towards a filtered version of xs, where the filter criterion is a lambda of divisibility by two.
+
 See, we can make JavaScript look more like Haskell than C!
 
 All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.
-
-**TODO: improve this section. Not a lot of good content yet :(**
 
 ### Exceptions
 
@@ -224,7 +226,7 @@ try {
 }
 catch(err) {
     Block of code to handle errors
-} 
+}
 finally {
     Block of code to be executed regardless of the try..catch result
 }
@@ -235,7 +237,7 @@ function myFunction() {
     message = document.getElementById("message");
     message.innerHTML = "";
     x = document.getElementById("demo").value;
-    try { 
+    try {
         if(x == "") throw "is empty";
         if(isNaN(x)) throw "is not a number";
         x = Number(x);

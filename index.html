@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -189,15 +189,16 @@ var even = function(a) {
 }
 
 console.log(even(nums));</code></pre>
+<p>Here we have a list of <code>nums</code>, integers from 1 to 10. We define <code>even</code>, a function that accumulates a list of return values by going through all the elements of the input list and checking if the number has a remainder of 0 when divided by 2. At the end, the <code>ret</code> list is returned.</p>
 <p><strong>Functional approach</strong></p>
 <pre class="javascript"><code>var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 var even = xs =&gt; xs.filter(x =&gt; x % 2 == 0)
 
 console.log(even(nums));</code></pre>
+<p>Here we define <code>even</code> with arrow notation as a function that is essentially a lambda: input values xs tend towards a filtered version of xs, where the filter criterion is a lambda of divisibility by two.</p>
 <p>See, we can make JavaScript look more like Haskell than C!</p>
 <p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base.</p>
-<p><strong>TODO: improve this section. Not a lot of good content yet :(</strong></p>
 <h3 id="exceptions">Exceptions</h3>
 <p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement<br /></p>
 <ol type="1">
@@ -210,7 +211,7 @@ console.log(even(nums));</code></pre>
 }
 catch(err) {
     Block of code to handle errors
-} 
+}
 finally {
     Block of code to be executed regardless of the try..catch result
 }</code></pre>
@@ -219,7 +220,7 @@ finally {
     message = document.getElementById(&quot;message&quot;);
     message.innerHTML = &quot;&quot;;
     x = document.getElementById(&quot;demo&quot;).value;
-    try { 
+    try {
         if(x == &quot;&quot;) throw &quot;is empty&quot;;
         if(isNaN(x)) throw &quot;is not a number&quot;;
         x = Number(x);
