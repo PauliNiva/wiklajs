@@ -331,6 +331,7 @@ The finally clause always executes, regardless of whether or not an exception wa
 It executes after the try block and catch clause or clauses but before any statements following the try statement.
 Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's
 catch clause is entered.
+
 ```javascript
 try {
   try {
@@ -355,8 +356,9 @@ catch clause is entered when the specified exception is thrown. When an exceptio
 to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch
 clause is found, control transfers to that one.
 
-here is how to do implement the same conditional catch clauses using only
+Here is how to do implement the same conditional catch clauses using only
 simple JavaScript that does not conform to the ECMAScript specification:
+
 ```javascript
 try {
     myroutine(); // may throw three types of exceptions
@@ -371,8 +373,10 @@ try {
     logMyErrors(e); // pass exception object to error handler
 }
 ```
-here is how to do implement the same conditional catch clauses using only
+
+Here is how to do implement the same conditional catch clauses using only
 simple JavaScript conforming to the ECMAScript specification:
+
 ```javascript
 try {
     myroutine(); // may throw three types of exceptions
@@ -387,6 +391,7 @@ try {
     logMyErrors(e); // pass exception object to error handler
 }
 ```
+
 ECMAScript specifies six different kinds of exceptions.<br />
 
 1. EvalError, not in use, only included for backward compatibility's sake.<br />
@@ -443,17 +448,17 @@ say2(); // alerts "Hello Arto"
 
 ```
 
-So what exactly is going on here? We're first defining a new variable, we use the sayHello function with a parameter.
+So what exactly is going on here? We're first defining a new variable, we use the `sayHello` function with a parameter.
 
-The sayHello function defines its own variable called text, however the text itself is not returned. Rather we define another function inside the sayHello function. This is the function that actually displays any text.
+The `sayHello` function defines its own variable called text, however the text itself is not returned. Rather we define another function inside the `sayHello` function. This is the function that actually displays any text.
 
 The interesting thing about closures, is that they can access all data contained in the environment where they were created. So in this case, the closure sees the text variable and can access it.
 
-And finally, we actually return the sayAlert variable, which in itself is a function, that uses variables defined in the sayHello function.
+And finally, we actually return the `sayAlert` variable, which in itself is a function, that uses variables defined in the `sayHello` function.
 
 Usually in programming languages when you return from a function, any reference to that function itself is removed. So in this case, the variable text should not be accessible since the function environment no longer exists.
 
-Yet by calling the function with say2(); we get the print defined in the text variable. Why is this?
+Yet by calling the function with `say2();` we get the print defined in the text variable. Why is this?
 
 As stated previously, a closure can access any data from the environment where it was created, however the closure also maintains a reference to the environment where it was defined, and this has a lot of interesting proeprties that can be used and abused (like most things in javascript...)
 
@@ -572,7 +577,7 @@ So we push a new function to the list, a function which generates an alert based
 
 We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable `i`, which we used for our loop, is actually 4, because we iterated through the list!
 
-So it simply sees that `i = 4` and since nothing changes it, everything is evaluated to `item4` undefined.
+So it simply sees that `i = 4` and since nothing changes it, everything is evaluated to `item4 undefined`.
 
 
 

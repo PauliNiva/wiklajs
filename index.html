@@ -297,7 +297,7 @@ catch (ex) {
 // &quot;finally&quot;
 // &quot;outer&quot; &quot;inner&quot;</code></pre>
 <p>When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown. One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate catch clause is entered when the specified exception is thrown. When an exception occurs, control is transferred to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch clause is found, control transfers to that one.</p>
-<p>here is how to do implement the same conditional catch clauses using only simple JavaScript that does not conform to the ECMAScript specification:</p>
+<p>Here is how to do implement the same conditional catch clauses using only simple JavaScript that does not conform to the ECMAScript specification:</p>
 <pre class="javascript"><code>try {
     myroutine(); // may throw three types of exceptions
 } catch (e if e instanceof TypeError) {
@@ -310,7 +310,7 @@ catch (ex) {
     // statements to handle any unspecified exceptions
     logMyErrors(e); // pass exception object to error handler
 }</code></pre>
-<p>here is how to do implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
+<p>Here is how to do implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
 <pre class="javascript"><code>try {
     myroutine(); // may throw three types of exceptions
 } catch (e if e instanceof TypeError) {
@@ -352,12 +352,12 @@ throw true;                   // throws a Boolean</code></pre>
 var say2 = sayHello(&#39;Arto&#39;);
 say2(); // alerts &quot;Hello Arto&quot;
 </code></pre>
-<p>So what exactly is going on here? We're first defining a new variable, we use the sayHello function with a parameter.</p>
-<p>The sayHello function defines its own variable called text, however the text itself is not returned. Rather we define another function inside the sayHello function. This is the function that actually displays any text.</p>
+<p>So what exactly is going on here? We're first defining a new variable, we use the <code>sayHello</code> function with a parameter.</p>
+<p>The <code>sayHello</code> function defines its own variable called text, however the text itself is not returned. Rather we define another function inside the <code>sayHello</code> function. This is the function that actually displays any text.</p>
 <p>The interesting thing about closures, is that they can access all data contained in the environment where they were created. So in this case, the closure sees the text variable and can access it.</p>
-<p>And finally, we actually return the sayAlert variable, which in itself is a function, that uses variables defined in the sayHello function.</p>
+<p>And finally, we actually return the <code>sayAlert</code> variable, which in itself is a function, that uses variables defined in the <code>sayHello</code> function.</p>
 <p>Usually in programming languages when you return from a function, any reference to that function itself is removed. So in this case, the variable text should not be accessible since the function environment no longer exists.</p>
-<p>Yet by calling the function with say2(); we get the print defined in the text variable. Why is this?</p>
+<p>Yet by calling the function with <code>say2();</code> we get the print defined in the text variable. Why is this?</p>
 <p>As stated previously, a closure can access any data from the environment where it was created, however the closure also maintains a reference to the environment where it was defined, and this has a lot of interesting proeprties that can be used and abused (like most things in javascript...)</p>
 <p>Here's a function that clearly shows that the variables are kept in reference, rather than just copied.</p>
 <pre class="javascript"><code>function say666() {
@@ -429,7 +429,7 @@ for (var j = 0; j &lt; weird.length; j++) {
 <pre class="javascript"><code>result.push( function() {alert(item + &#39; &#39; + list[i])} );</code></pre>
 <p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the reference environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
 <p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable <code>i</code>, which we used for our loop, is actually 4, because we iterated through the list!</p>
-<p>So it simply sees that <code>i = 4</code> and since nothing changes it, everything is evaluated to <code>item4</code> undefined.</p>
+<p>So it simply sees that <code>i = 4</code> and since nothing changes it, everything is evaluated to <code>item4 undefined</code>.</p>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
