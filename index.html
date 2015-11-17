@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header>
@@ -313,15 +313,17 @@ catch (ex) {
 <p>Here is how to do implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
 <pre class="javascript"><code>try {
     myroutine(); // may throw three types of exceptions
-} catch (e if e instanceof TypeError) {
-    // statements to handle TypeError exceptions
-} catch (e if e instanceof RangeError) {
-    // statements to handle RangeError exceptions
-} catch (e if e instanceof EvalError) {
-    // statements to handle EvalError exceptions
 } catch (e) {
-    // statements to handle any unspecified exceptions
-    logMyErrors(e); // pass exception object to error handler
+    if (e instanceof TypeError) {
+        // statements to handle TypeError exceptions
+    } else if (e instanceof RangeError) {
+        // statements to handle RangeError exceptions
+    } else if (e instanceof EvalError) {
+        // statements to handle EvalError exceptions
+    } else {
+       // statements to handle any unspecified exceptions
+       logMyErrors(e); // pass exception object to error handler
+    }
 }</code></pre>
 <p>ECMAScript specifies six different kinds of exceptions.</p>
 <ol type="1">
