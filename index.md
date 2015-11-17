@@ -8,8 +8,8 @@ Group members:
 
 - Veeti "walther" Haapsamo
 - Pauli "iluaP" Niva
-- Ville "vvainio" Vainio
 - Niko "aozi" Novitsky
+- Ville "vvainio" Vainio
 
 ## Week 1
 
