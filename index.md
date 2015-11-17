@@ -337,6 +337,22 @@ One can use the finally clause to make scripts fail gracefully when an exception
 If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of
 any return statements in the try and catch blocks.
 
+The throw statement allows the creation of custom errors.
+Execution of the current function will stop (the statements after throw
+won't be executed), and control will be passed to the first catch block
+in the call stack. If no catch block exists among caller functions,
+the program will terminate.
+
+The raised exception can be JavaScript String, Number, Boolean or an Object.
+Throw can be used alongside with try and catch to control program flow and generate
+custom error messages.
+
+```javascript
+throw "Something happened";   // throws a String
+throw 42;                     // throws a number
+throw true;                   // throws a Boolean
+```
+
 ### Closures
 
 Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided.

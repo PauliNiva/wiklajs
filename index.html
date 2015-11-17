@@ -288,6 +288,11 @@ catch (ex) {
 <p>When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified by the throw statement. This identifier can be used to get information about the thrown exception. This identifier is local to the catch clause. That is, it is created when the catch clause is entered, and after it finishes executing, the identifier is not available anymore.</p>
 <p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
 <p>If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of any return statements in the try and catch blocks.</p>
+<p>The throw statement allows the creation of custom errors. Execution of the current function will stop (the statements after throw won't be executed), and control will be passed to the first catch block in the call stack. If no catch block exists among caller functions, the program will terminate.</p>
+<p>The raised exception can be JavaScript String, Number, Boolean or an Object. Throw can be used alongside with try and catch to control program flow and generate custom error messages.</p>
+<pre class="javascript"><code>throw &quot;Something happened&quot;;   // throws a String
+throw 42;                     // throws a number
+throw true;                   // throws a Boolean</code></pre>
 <h3 id="closures">Closures</h3>
 <p>Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided.</p>
 <p>Here is a simple function that uses a closure</p>
