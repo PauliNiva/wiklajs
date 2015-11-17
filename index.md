@@ -6,10 +6,10 @@ Simple site for submitting answers for the exercises on the course "Ohjelmointit
 
 Group members:
 
-- veeti "walther" haapsamo
-- pauli "iluaP" niva
-- ville "vvainio" vainio
-- niko "aozi" novitsky
+- Veeti "walther" Haapsamo
+- Pauli "iluaP" Niva
+- Ville "vvainio" Vainio
+- Niko "aozi" Novitsky
 
 ## Week 1
 
@@ -339,19 +339,7 @@ any return statements in the try and catch blocks.
 
 ### Closures
 
-<<<<<<< Updated upstream
-Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided. 
-=======
-Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
->>>>>>> origin/gh-pages
-=======
-Explaining what a closure is, is a bit difficult. It's easier to demosntrate it and expand from the examples provided.
->>>>>>> origin/gh-pages
->>>>>>> Stashed changes
+Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided.
 
 Here is a simple function that uses a closure
 
