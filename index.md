@@ -489,7 +489,7 @@ for (var i = 0; i < list.length; i++) {
 }
 ```   
 
-Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops. But thigns go weird with closures, we use a closure in the actual return function.
+Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.
 
 
 ```javascript

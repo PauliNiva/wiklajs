@@ -378,7 +378,7 @@ for (var j = 0; j &lt; weird.length; j++) {
     var item = &#39;item&#39; + i;
     result.push( function() {alert(item + &#39; &#39; + list[i])} );
 }</code></pre>
-<p>Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops. But thigns go weird with closures, we use a closure in the actual return function.</p>
+<p>Thus far pretty easy, however we then use the i variable to index the elements....Because that's what we do with for loops, then things get weird. Because closures are weird.</p>
 <pre class="javascript"><code>result.push( function() {alert(item + &#39; &#39; + list[i])} );</code></pre>
 <p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the refenrence environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
 <p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable i, which we used for our loop, is actually 4, because we iterated through the list!</p>
