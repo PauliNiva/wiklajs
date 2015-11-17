@@ -222,6 +222,8 @@ function fibonacci(n){
 144
 ```
 
+Usage of static code analysis tools are also highly recommended to detect errors and potential problems. They can be configured to match particular coding guidelines and conventions. One example of such tool is [JSHint](http://jshint.com/about/).
+
 All in all, JavaScript is a very liberal language and leaves much of the responsibility to the programmer. There are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.
 
 Links:
@@ -229,6 +231,8 @@ Links:
 [JavaScript implementation of different computer science algorithms.](https://github.com/mgechev/javascript-algorithms)
 
 [Flow, a new static type checker for JavaScript](http://flowtype.org)
+
+[JSHint - A Static Code Analysis Tool for JavaScript](http://jshint.com/about/)
 
 ### Functional vs imperative
 
