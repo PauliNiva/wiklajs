@@ -166,7 +166,7 @@ console.assert(false === isArrayOfNumbers(["5"]), 'not isArrayOfNumbers ["5"]');
 
 Algorithms can be written in JavaScript just like with any other programming language [1]. However, due to the dynamic nature of JavaScript (as seen on Week 1), type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.
 
-Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking. There are several tools and libraries for doing this, such as [Flow](https://www.google.fi/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CCYQFjABahUKEwi42reenZfJAhUF3iwKHf2EA60&url=http%3A%2F%2Fflowtype.org%2F&usg=AFQjCNFTj0tMft6KizAeNnJ8EG_WBy2LWQ&sig2=n5CFzD5i8lukElTEbmcJDQ) - a static type checker by Facebook which is designed to find type errors.
+Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking. There are several tools and libraries for doing this, such as [Flow](http://flowtype.org) - a static type checker by Facebook which is designed to find type errors.
 
 An example of a function that would normally result in a crash when executing:
 ```
@@ -228,7 +228,7 @@ Links:
 
 [JavaScript implementation of different computer science algorithms.](https://github.com/mgechev/javascript-algorithms)
 
-[Flow, a new static type checker for JavaScript]([https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/)
+[Flow, a new static type checker for JavaScript](http://flowtype.org)
 
 ### Functional vs imperative
 
