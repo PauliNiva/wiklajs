@@ -1,0 +1,70 @@
+digraph wiklajs {
+  graph [overlap = scale]
+  node [
+    shape=Mrecord,
+    fontname="DejaVu Sans"
+  ] // Stylize all nodes
+
+  piste [label="{
+  <f0> Point(x,y) |
+  <f1> prototype: Point.prototype |
+  <f2> __proto__: Function.prototype
+  }"];
+
+  piste:f1 -> pisteproto:f0;
+  piste:f2 -> functionproto:f0;
+
+  pisteproto [label="{
+  <f0> Point.prototype |
+  <f1> constructor: function Point(x,y) |
+  <f2> tulo: function() |
+  <f3> __proto__: Object.prototype
+  }"];
+
+  pisteproto:f1 -> piste:f0;
+  pisteproto:f3 -> objectproto:f0;
+
+
+  a [label="{
+  <f0> a = new Point(3,6) |
+  <f1> __proto__: Point.prototype
+  }"];
+
+  a:f1 -> pisteproto:f0;
+
+  b [label="{
+  <f0> b = new Point(3.14, 2.8) |
+  <f1> __proto__: Point.prototype
+  }"];
+
+  b:f1 -> pisteproto:f0;
+
+  functionproto [label="{
+  <f0> Function.prototype |
+  <f1> __proto__: Object.prototype |
+  <f2> constructor: Function
+  }"];
+
+  functionproto:f1 -> objectproto:f0;
+  functionproto:f2 -> function:f0;
+
+  function [label="{
+  <f0> Function
+  }"];
+
+  objectproto [label="{
+  <f0> Object.prototype |
+  <f1> __proto__: null |
+  <f2> constructor: Object
+  }"]
+
+  objectproto:f1 -> null;
+  objectproto:f2 -> object:f0;
+
+  object [label="{
+  <f0> Object
+  }"]
+
+ null
+
+}

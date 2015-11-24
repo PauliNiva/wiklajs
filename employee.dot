@@ -1,0 +1,77 @@
+digraph wiklajs2 {
+  graph [overlap = scale]
+  node [
+    shape=Mrecord,
+    fontname="DejaVu Sans"
+  ] // Stylize all nodes
+
+  employee [label="{
+  <f0> Employee() |
+  <f1> prototype: Employee.prototype |
+  <f2> __proto__: Function.prototype
+  }"];
+
+  employee:f1 -> employeeproto:f0;
+  employee:f2 -> functionproto:f0;
+
+  employeeproto [label="{
+  <f0> Employee.prototype |
+  <f1> constructor: function Employee(x,y) |
+  <f2> __proto__: Object.prototype
+  }"];
+
+  employeeproto:f1 -> employee:f0;
+  employeeproto:f2 -> objectproto:f0;
+
+//////
+
+
+workerbee [label="{
+<f0> Workerbee() |
+<f1> prototype: Workerbee.prototype |
+<f2> __proto__: Function.prototype
+}"];
+
+workerbee:f1 -> workerbeeproto:f0;
+workerbee:f2 -> functionproto:f0;
+
+workerbeeproto [label="{
+<f0> Workerbee.prototype |
+<f1> constructor: function Workerbee(x,y) |
+<f2> __proto__: Object.prototype
+}"];
+
+workerbeeproto:f1 -> workerbee:f0;
+workerbeeproto:f2 -> objectproto:f0;
+
+//////
+
+  functionproto [label="{
+  <f0> Function.prototype |
+  <f1> __proto__: Object.prototype |
+  <f2> constructor: Function
+  }"];
+
+  functionproto:f1 -> objectproto:f0;
+  functionproto:f2 -> function:f0;
+
+  function [label="{
+  <f0> Function
+  }"];
+
+  objectproto [label="{
+  <f0> Object.prototype |
+  <f1> __proto__: null |
+  <f2> constructor: Object
+  }"]
+
+  objectproto:f1 -> null;
+  objectproto:f2 -> object:f0;
+
+  object [label="{
+  <f0> Object
+  }"]
+
+ null
+
+}
