@@ -558,7 +558,7 @@ Looking at this, you would expect the function to generate a list that prints th
 
 The function actually prints `item4 undefined` five times......Why? Because closures are evaluated in the environment they were defined in.
 
-So when we first generate the list, we loopthrough the list we give as a parameter;
+So when we first generate the list, we loop through the list we give as a parameter;
 
 
 ```javascript
@@ -581,24 +581,23 @@ We use the function to generate the alert, and store that in the result list. Bu
 
 So it simply sees that `i = 4` and since nothing changes it, everything is evaluated to `item4 undefined`.
 
+## Week 3
+
 ###Objects
 
-Olioita voidaan luoda monin tavoin, kenttiä voidaan lisätä ja poistaa, kenttiin voidaan viitata eri tavoin, myös dynaamisesti, kentän nimeksi kelpaa miltei mitä tahansa.
-
-
-There arte numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no "best" solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses. 
+There art numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no "best" solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses.
 
 Let's start with something simple, an object literal
 ```javascript
-    var person = { 
+    var person = {
         name : "Wikla",
         getName : function (){
             return this.name
-        } 
-    } 
+        }
+    }
 ```   
 
-We're creating an object called person with its own proeprties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.
+We're creating an object called person with its own properties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.
 
 Next up, the object constructor
 ```javascript
@@ -606,11 +605,11 @@ Next up, the object constructor
 
     person.name = "Wikla",
     person.getName = function(){
-        return this.name ; 
+        return this.name ;
     };
 ```
 
-This is slightly different, we're first using the `ne` keyword to create an isntance of the base class `Object. We then proceed to use the traditional javasdcript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily. 
+This is slightly different, we're first using the `ne` keyword to create an instance of the base class `Object. We then proceed to use the traditional JavaScript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily.
 
 Next up, the function constructor
 ```javascript
@@ -618,10 +617,10 @@ Next up, the function constructor
       this.name = name
       this.getName = function(){
         return this.name
-      } 
-    } 
+      }
+    }
 ```
-    
+
 This would be the closest to something like Java. We're creating a new function that serves as the constructor function whenever we create a new instance of this object. This approach has the obvious benefit of being able to create multiple objects from the same constructor but with different properties.
 
 Next up is the prototype way
@@ -630,8 +629,8 @@ Next up is the prototype way
     function Person(){};
     Person.prototype.name = "Wikla";
 ```
-    
-Now what's going on here? We're first creating a new function called Person, just like with functions constructors. However we leave everything empty, but Javascript still creates  a constructor function that sets up all the basic fields javascript objects have, such as the `prototype` field. 
+
+Now what's going on here? We're first creating a new function called Person, just like with functions constructors. However we leave everything empty, but Javascript still creates  a constructor function that sets up all the basic fields javascript objects have, such as the `prototype` field.
 The `prototype field in this case, refers to the constructor function which is used to create an instance of the Person object. By adding new field to this, we're also adding new fields to any future instances created from this function.
 
 We can also combine any of these approaches, for example, here's a combination of function constructors and prototypes
@@ -639,16 +638,16 @@ We can also combine any of these approaches, for example, here's a combination o
 ```javascript
     function Person(name){
       this.name = name;
-    } 
+    }
     Person.prototype.getName = function(){
       return this.name
-    } 
+    }
 ```
 
 So we first create a new function called `Person`, this function contains a single value `name. We then use the prototype field like in the previous example, to add properties to the function prototype.
-This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the proeprty name already, this getName function can obviously see it.
+This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the property name already, this getName function can obviously see it.
 
-One more thing worth mentioning is the `Object.create()` function. For the most part it works exactly the same as the new function, with one major difference. 
+One more thing worth mentioning is the `Object.create()` function. For the most part it works exactly the same as the new function, with one major difference.
 `Object.create()` allows you to define the prototype of the object you're creating. When using a constructor function, the object inherits properties directly from the constructor's prototype. You can also define objects inside the object.create argument definitions.
 
 To put it simple:
@@ -664,7 +663,7 @@ Is equal to:
 
 As mentioned before, we can quite freely add field to an object or the object prototype, in fact we can climb up the prototype chain using the `__proto__` field in order to assign new fields and properties to anything in the chain.
 
-This is of course not very sensible nor advised, you can easily break literally everything by making amsitake in the prototype chain. But as a property of Javascript, it is a good idea to learn it and make use of it, carefully.
+This is of course not very sensible nor advised, you can easily break literally everything by making a mistake in the prototype chain. But as a property of Javascript, it is a good idea to learn it and make use of it, carefully.
 
 One very interesting property of javascript is the ability to dynamically name fields, simply put you can use variables to name any field or other variable inside an object.
 
@@ -680,7 +679,7 @@ One very interesting property of javascript is the ability to dynamically name f
 
 This, once again can be extremely powerful and extremely easy to screw up and break your entire codebase.
 
-Ideally you'd want to stick with one type of Object declarations to make your code easily readable, branch out if the other styles provide you with some benefit you wouldn't get elesewhere.
+Ideally you'd want to stick with one type of Object declarations to make your code easily readable, branch out if the other styles provide you with some benefit you wouldn't get else where.
 
 Now how do you make the best use of objects in Javascript? One good thing to do is to make good use of modules. Modules are a design pattern in Javascript that allows you to easily create public and private functions, along with encapsulating data.
 
@@ -712,9 +711,270 @@ Now how do you make the best use of objects in Javascript? One good thing to do 
       }();
 ```
 
-You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the fucntion we defined, the function itself returns an object literal that we define. 
+You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the function we defined, the function itself returns an object literal that we define.
 
-This function ltieral stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even atfer it is discarded by the garbage collector.
+This function literal stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even after it is discarded by the garbage collector.
+
+The Object.defineProperty() method defines a new property directly on an object,
+or modifies an existing property on an object, and returns the object.
+
+```javascript
+Object.defineProperty(obj, prop, desc)
+```
+Function has three parameters:
+obj...The object on which to define the property.
+prop...The name of the property to be defined or modified.
+desc...The descriptor for the property being defined or modified.
+
+### Changing and/or creating properties for an Object
+
+Object.defineProperty allows precise addition or a modification of a property
+of an object. Property addition through assignment creates properties which
+show up when properties are enumerated. These values may be changed, and/or deleted.
+Object.defineProperty function allows these extra details to be changed from
+their defaults. Values added using Object.defineProperty() are immutable.
+
+There are two kinds of descriptors in objects: data descriptors
+and accessor descriptors. A data descriptor is a property that has a value,
+which can be writable. An accessor descriptor is a property described
+by a getter-setter pair of functions. A descriptor must be either one of these.
+It cannot be both.
+
+Both data and accessor descriptors are objects. They have the following
+common required keys:
+
+1. configurable...true if and only if the descriptors type may be changed
+and if the property may be deleted from the corresponding object.
+2. enumerable...true if and only if this property shows up during enumeration
+of the properties of the object.
+Both of these default to false.
+
+Data descriptor has these two optional keys:
+1. value...The value associated with the property. Can be any valid value
+(number, object, function, etc).
+This key defaults to undefined.
+2. writable...true if and only if the value can be changed with an assignment
+operator.
+This key defaults to false.
+
+Accessor descriptor has these two optional keys:
+1. get...getter function for the property.
+Can be undefined if there is no getter. The function return will be used
+as the value of property.
+set...setter function for the property, or undefined if there is no setter.
+The function will receive the new value being assigned to the property
+as its only argument.
+Both of these default to undefined.
+
+Keep in mind that these options are not necessarily own properties so inherited
+options are also considered. In order to ensure that these defaults are
+preserved, programmer must freeze the Object.prototype beforehand,
+explicitly specify all the options, or point to "null" as "__proto__" property.
+
+```javascript
+// using __proto__
+var obj = {};
+Object.defineProperty(obj, 'key', {
+  __proto__: null, // no inherited properties
+  value: 'static'  // not enumerable
+                   // not configurable
+                   // not writable
+                   // as defaults
+});
+
+// being explicit
+Object.defineProperty(obj, 'key', {
+  enumerable: false,
+  configurable: false,
+  writable: false,
+  value: 'static'
+});
+
+// recycling same object
+function withValue(value) {
+  var d = withValue.d || (
+    withValue.d = {
+      enumerable: false,
+      writable: false,
+      configurable: false,
+      value: null
+    }
+  );
+  d.value = value;
+  return d;
+}
+// ... and ...
+Object.defineProperty(obj, 'key', withValue('static'));
+
+// if freeze is available, prevents adding or
+// removing the object prototype properties
+// (value, get, set, enumerable, writable, configurable)  
+(Object.freeze || Object)(Object.prototype);
+```
+
+Creating a property
+When the object does not have have the specified property, then
+Object.defineProperty() creates a new property as described.
+Fields can be omitted from the descriptor, and default values for those fields
+are considered. All Boolean fields default to false. The value of get and set
+fields default to undefined.
+When a property is defined without get/set/value/writable, then it is
+called "generic" and is "typed" as a data descriptor.
+
+```javascript
+var o = {}; // Creates a new object
+
+// Example of an object property added with defineProperty with a data property descriptor
+Object.defineProperty(o, 'a', {
+  value: 37,
+  writable: true,
+  enumerable: true,
+  configurable: true
+});
+// 'a' property exists in the o object and its value is 37
+
+// Example of an object property added with defineProperty with an accessor property descriptor
+var bValue = 38;
+Object.defineProperty(o, 'b', {
+  get: function() { return bValue; },
+  set: function(newValue) { bValue = newValue; },
+  enumerable: true,
+  configurable: true
+});
+o.b; // 38
+// 'b' property exists in the o object and its value is 38
+// The value of o.b is now always identical to bValue, unless o.b is redefined
+
+// You cannot try to mix both:
+Object.defineProperty(o, 'conflict', {
+  value: 0x9f91102,
+  get: function() { return 0xdeadbeef; }
+});
+// throws a TypeError: value appears only in data descriptors, get appears only in accessor descriptors
+```
+Modifying a property
+When the property already exists, Object.defineProperty() attempts to modify
+the property according to the values that are in the descriptor.
+If the old descriptor had its configurable attribute set to false, that is
+the property is "non-configurable", then no attribute besides writable
+can be changed. In this case, it is not possible to switch back and forth
+between the data and accessor property types.
+
+If a property is non-configurable, its writable attribute can only be changed
+to false. When attempts are made to change non-configurable property attributes
+a TypeError is thrown. (unless the current and new value are the same).
+
+Writable attribute
+When the writable property attribute is set to false, then it cannot be
+reassigned and the property is said to be “non-writable”.
+Trying to write into the non-writable property does not throw an error.
+
+```javascript
+var o = {}; // Creates a new object
+
+Object.defineProperty(o, 'a', {
+  value: 37,
+  writable: false
+});
+
+console.log(o.a); // logs 37
+o.a = 25; // No error thrown (it would throw in strict mode, even if the value had been the same)
+console.log(o.a); // logs 37. The assignment didn't work.
+```
+
+Enumerable attribute
+The enumerable property attribute defines if the property shows up in a
+for...in loop and Object.keys().
+```javascript
+var o = {};
+Object.defineProperty(o, 'a', { value: 1, enumerable: true });
+Object.defineProperty(o, 'b', { value: 2, enumerable: false });
+Object.defineProperty(o, 'c', { value: 3 }); // enumerable defaults to false
+o.d = 4; // enumerable defaults to true when creating a property by setting it
+
+for (var i in o) {
+  console.log(i);
+}
+// logs 'a' and 'd' (in undefined order)
+
+Object.keys(o); // ['a', 'd']
+
+o.propertyIsEnumerable('a'); // true
+o.propertyIsEnumerable('b'); // false
+o.propertyIsEnumerable('c'); // false
+```
+
+Configurable attribute
+The configurable attribute controls whether the property can be deleted from
+the object and whether its attributes (other than writable) can be changed.
+```javascript
+var o = {};
+Object.defineProperty(o, 'a', {
+  get: function() { return 1; },
+  configurable: false
+});
+
+Object.defineProperty(o, 'a', { configurable: true }); // throws a TypeError
+Object.defineProperty(o, 'a', { enumerable: true }); // throws a TypeError
+Object.defineProperty(o, 'a', { set: function() {} }); // throws a TypeError (set was undefined previously)
+Object.defineProperty(o, 'a', { get: function() { return 1; } }); // throws a TypeError (even though the new get does exactly the same thing)
+Object.defineProperty(o, 'a', { value: 12 }); // throws a TypeError
+
+console.log(o.a); // logs 1
+delete o.a; // Nothing happens
+console.log(o.a); // logs 1
+```
+
+Example of adding properties and default values:
+```javascript
+var o = {};
+
+o.a = 1;
+// is equivalent to:
+Object.defineProperty(o, 'a', {
+  value: 1,
+  writable: true,
+  configurable: true,
+  enumerable: true
+});
+
+
+// On the other hand,
+Object.defineProperty(o, 'a', { value: 1 });
+// is equivalent to:
+Object.defineProperty(o, 'a', {
+  value: 1,
+  writable: false,
+  configurable: false,
+  enumerable: false
+});
+```
+Example of custom getters and setters:
+```javascript
+function Archiver() {
+  var temperature = null;
+  var archive = [];
+
+  Object.defineProperty(this, 'temperature', {
+    get: function() {
+      console.log('get!');
+      return temperature;
+    },
+    set: function(value) {
+      temperature = value;
+      archive.push({ val: temperature });
+    }
+  });
+
+  this.getArchive = function() { return archive; };
+}
+
+var arc = new Archiver();
+arc.temperature; // 'get!'
+arc.temperature = 11;
+arc.temperature = 13;
+arc.getArchive(); // [{ val: 11 }, { val: 13 }]
+```
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
