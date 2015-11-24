@@ -517,7 +517,19 @@ for (var j = 0; j &lt; weird.length; j++) {
           myPublicFunction: myPublicFunction
         };
         return oPublic;
-      }();</code></pre>
+      }();
+
+// Let&#39;s call our setup function....
+console.log(&quot;Calling init()...&quot;);
+MyNamespace.MyModule.init();
+// And our public function.  Internally, this will call myPrivateFunction.
+// This wil work because it&#39;s being called from inside the module.
+console.log(&quot;Calling myPublicFunction()...&quot;);
+MyNamespace.MyModule.myPublicFunction();
+// This will throw an error because myPrivateFunction() is not accessible
+// from outside the module.
+console.log(&quot;Calling myPrivateFunction()...&quot;);
+MyNamespace.MyModule.myPrivateFunction();</code></pre>
 <p>You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the function we defined, the function itself returns an object literal that we define.</p>
 <p>This function literal stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even after it is discarded by the garbage collector.</p>
 <p>The Object.defineProperty() method defines a new property directly on an object, or modifies an existing property on an object, and returns the object.</p>

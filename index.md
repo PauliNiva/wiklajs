@@ -709,6 +709,18 @@ Now how do you make the best use of objects in Javascript? One good thing to do 
         };
         return oPublic;
       }();
+
+// Let's call our setup function....
+console.log("Calling init()...");
+MyNamespace.MyModule.init();
+// And our public function.  Internally, this will call myPrivateFunction.
+// This wil work because it's being called from inside the module.
+console.log("Calling myPublicFunction()...");
+MyNamespace.MyModule.myPublicFunction();
+// This will throw an error because myPrivateFunction() is not accessible
+// from outside the module.
+console.log("Calling myPrivateFunction()...");
+MyNamespace.MyModule.myPrivateFunction();
 ```
 
 You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the function we defined, the function itself returns an object literal that we define.
