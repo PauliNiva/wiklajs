@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header>
@@ -585,7 +585,8 @@ Object.defineProperty(obj, &#39;key&#39;, withValue(&#39;static&#39;));
 // removing the object prototype properties
 // (value, get, set, enumerable, writable, configurable)
 (Object.freeze || Object)(Object.prototype);</code></pre>
-<p>Creating a property When the object does not have have the specified property, then Object.defineProperty() creates a new property as described. Fields can be omitted from the descriptor, and default values for those fields are considered. All Boolean fields default to false. The value of get and set fields default to undefined. When a property is defined without get/set/value/writable, then it is called &quot;generic&quot; and is &quot;typed&quot; as a data descriptor.</p>
+<p><strong>Creating a property</strong></p>
+<p>When the object does not have have the specified property, then Object.defineProperty() creates a new property as described. Fields can be omitted from the descriptor, and default values for those fields are considered. All Boolean fields default to false. The value of get and set fields default to undefined. When a property is defined without get/set/value/writable, then it is called &quot;generic&quot; and is &quot;typed&quot; as a data descriptor.</p>
 <pre class="javascript"><code>var o = {}; // Creates a new object
 
 // Example of an object property added with defineProperty with a data property descriptor
@@ -615,7 +616,8 @@ Object.defineProperty(o, &#39;conflict&#39;, {
   get: function() { return 0xdeadbeef; }
 });
 // throws a TypeError: value appears only in data descriptors, get appears only in accessor descriptors</code></pre>
-<p>Modifying a property When the property already exists, Object.defineProperty() attempts to modify the property according to the values that are in the descriptor. If the old descriptor had its configurable attribute set to false, that is the property is &quot;non-configurable&quot;, then no attribute besides writable can be changed. In this case, it is not possible to switch back and forth between the data and accessor property types.</p>
+<p><strong>Modifying a property</strong></p>
+<p>When the property already exists, Object.defineProperty() attempts to modify the property according to the values that are in the descriptor. If the old descriptor had its configurable attribute set to false, that is the property is &quot;non-configurable&quot;, then no attribute besides writable can be changed. In this case, it is not possible to switch back and forth between the data and accessor property types.</p>
 <p>If a property is non-configurable, its writable attribute can only be changed to false. When attempts are made to change non-configurable property attributes a TypeError is thrown. (unless the current and new value are the same).</p>
 <p>Writable attribute When the writable property attribute is set to false, then it cannot be reassigned and the property is said to be “non-writable”. Trying to write into the non-writable property does not throw an error.</p>
 <pre class="javascript"><code>var o = {}; // Creates a new object
@@ -628,7 +630,8 @@ Object.defineProperty(o, &#39;a&#39;, {
 console.log(o.a); // logs 37
 o.a = 25; // No error thrown (it would throw in strict mode, even if the value had been the same)
 console.log(o.a); // logs 37. The assignment didn&#39;t work.</code></pre>
-<p>Enumerable attribute The enumerable property attribute defines if the property shows up in a for...in loop and Object.keys().</p>
+<p><strong>Enumerable attribute</strong></p>
+<p>The enumerable property attribute defines if the property shows up in a for...in loop and Object.keys().</p>
 <pre class="javascript"><code>var o = {};
 Object.defineProperty(o, &#39;a&#39;, { value: 1, enumerable: true });
 Object.defineProperty(o, &#39;b&#39;, { value: 2, enumerable: false });
@@ -645,7 +648,8 @@ Object.keys(o); // [&#39;a&#39;, &#39;d&#39;]
 o.propertyIsEnumerable(&#39;a&#39;); // true
 o.propertyIsEnumerable(&#39;b&#39;); // false
 o.propertyIsEnumerable(&#39;c&#39;); // false</code></pre>
-<p>Configurable attribute The configurable attribute controls whether the property can be deleted from the object and whether its attributes (other than writable) can be changed.</p>
+<p><strong>Configurable attribute</strong></p>
+<p>The configurable attribute controls whether the property can be deleted from the object and whether its attributes (other than writable) can be changed.</p>
 <pre class="javascript"><code>var o = {};
 Object.defineProperty(o, &#39;a&#39;, {
   get: function() { return 1; },

@@ -824,7 +824,8 @@ Object.defineProperty(obj, 'key', withValue('static'));
 (Object.freeze || Object)(Object.prototype);
 ```
 
-Creating a property
+__Creating a property__
+
 When the object does not have have the specified property, then
 Object.defineProperty() creates a new property as described.
 Fields can be omitted from the descriptor, and default values for those fields
@@ -864,7 +865,8 @@ Object.defineProperty(o, 'conflict', {
 });
 // throws a TypeError: value appears only in data descriptors, get appears only in accessor descriptors
 ```
-Modifying a property
+__Modifying a property__
+
 When the property already exists, Object.defineProperty() attempts to modify
 the property according to the values that are in the descriptor.
 If the old descriptor had its configurable attribute set to false, that is
@@ -894,7 +896,8 @@ o.a = 25; // No error thrown (it would throw in strict mode, even if the value h
 console.log(o.a); // logs 37. The assignment didn't work.
 ```
 
-Enumerable attribute
+__Enumerable attribute__
+
 The enumerable property attribute defines if the property shows up in a
 for...in loop and Object.keys().
 ```javascript
@@ -916,7 +919,8 @@ o.propertyIsEnumerable('b'); // false
 o.propertyIsEnumerable('c'); // false
 ```
 
-Configurable attribute
+__Configurable attribute__
+
 The configurable attribute controls whether the property can be deleted from
 the object and whether its attributes (other than writable) can be changed.
 ```javascript
