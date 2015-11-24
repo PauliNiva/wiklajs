@@ -28,6 +28,7 @@
 <li><a href="#functional-vs-imperative">Functional vs imperative</a></li>
 <li><a href="#exceptions">Exceptions</a></li>
 <li><a href="#closures">Closures</a></li>
+<li><a href="#objects">Objects</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -432,6 +433,90 @@ for (var j = 0; j &lt; weird.length; j++) {
 <p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the reference environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
 <p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable <code>i</code>, which we used for our loop, is actually 4, because we iterated through the list!</p>
 <p>So it simply sees that <code>i = 4</code> and since nothing changes it, everything is evaluated to <code>item4 undefined</code>.</p>
+<h3 id="objects">Objects</h3>
+<p>Olioita voidaan luoda monin tavoin, kenttiä voidaan lisätä ja poistaa, kenttiin voidaan viitata eri tavoin, myös dynaamisesti, kentän nimeksi kelpaa miltei mitä tahansa.</p>
+<p>There arte numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no &quot;best&quot; solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses.</p>
+<p>Let's start with something simple, an object literal</p>
+<pre class="javascript"><code>    var person = { 
+        name : &quot;Wikla&quot;,
+        getName : function (){
+            return this.name
+        } 
+    } </code></pre>
+<p>We're creating an object called person with its own proeprties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.</p>
+<p>Next up, the object constructor</p>
+<pre class="javascript"><code>    var person = new Object();
+
+    person.name = &quot;Wikla&quot;,
+    person.getName = function(){
+        return this.name ; 
+    };</code></pre>
+<p>This is slightly different, we're first using the <code>ne</code> keyword to create an isntance of the base class `Object. We then proceed to use the traditional javasdcript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily.</p>
+<p>Next up, the function constructor</p>
+<pre class="javascript"><code>    function Person(name){
+      this.name = name
+      this.getName = function(){
+        return this.name
+      } 
+    } </code></pre>
+<p>This would be the closest to something like Java. We're creating a new function that serves as the constructor function whenever we create a new instance of this object. This approach has the obvious benefit of being able to create multiple objects from the same constructor but with different properties.</p>
+<p>Next up is the prototype way</p>
+<pre class="javascript"><code>    function Person(){};
+    Person.prototype.name = &quot;Wikla&quot;;</code></pre>
+<p>Now what's going on here? We're first creating a new function called Person, just like with functions constructors. However we leave everything empty, but Javascript still creates a constructor function that sets up all the basic fields javascript objects have, such as the <code>prototype</code> field. The `prototype field in this case, refers to the constructor function which is used to create an instance of the Person object. By adding new field to this, we're also adding new fields to any future instances created from this function.</p>
+<p>We can also combine any of these approaches, for example, here's a combination of function constructors and prototypes</p>
+<pre class="javascript"><code>    function Person(name){
+      this.name = name;
+    } 
+    Person.prototype.getName = function(){
+      return this.name
+    } </code></pre>
+<p>So we first create a new function called <code>Person</code>, this function contains a single value `name. We then use the prototype field like in the previous example, to add properties to the function prototype. This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the proeprty name already, this getName function can obviously see it.</p>
+<p>One more thing worth mentioning is the <code>Object.create()</code> function. For the most part it works exactly the same as the new function, with one major difference. <code>Object.create()</code> allows you to define the prototype of the object you're creating. When using a constructor function, the object inherits properties directly from the constructor's prototype. You can also define objects inside the object.create argument definitions.</p>
+<p>To put it simple:</p>
+<pre class="javascript"><code>    var a = new Person();</code></pre>
+<p>Is equal to:</p>
+<pre class="javascript"><code>    var a = Object.create(Person.prototype);</code></pre>
+<p>As mentioned before, we can quite freely add field to an object or the object prototype, in fact we can climb up the prototype chain using the <code>__proto__</code> field in order to assign new fields and properties to anything in the chain.</p>
+<p>This is of course not very sensible nor advised, you can easily break literally everything by making amsitake in the prototype chain. But as a property of Javascript, it is a good idea to learn it and make use of it, carefully.</p>
+<p>One very interesting property of javascript is the ability to dynamically name fields, simply put you can use variables to name any field or other variable inside an object.</p>
+<pre class="javascript"><code>    function foobar(arg1) {
+       this.a = arg1;
+
+       name = this[&#39;a&#39;];
+       alert(name);
+    }
+    new foobar(&quot;Javascript&quot;);</code></pre>
+<p>This, once again can be extremely powerful and extremely easy to screw up and break your entire codebase.</p>
+<p>Ideally you'd want to stick with one type of Object declarations to make your code easily readable, branch out if the other styles provide you with some benefit you wouldn't get elesewhere.</p>
+<p>Now how do you make the best use of objects in Javascript? One good thing to do is to make good use of modules. Modules are a design pattern in Javascript that allows you to easily create public and private functions, along with encapsulating data.</p>
+<pre class="javascript"><code>      MyNamespace.MyModule = function()
+      {
+        var myPrivateProperty = 2;
+        var myPublicProperty = 1;
+        var myPrivateFunction = function()
+        {
+          console.log(&quot;myPrivateFunction()&quot;);
+        };
+        var myPublicFunction = function()
+        {
+          console.log(&quot;myPublicFunction()&quot;);
+          myPrivateFunction();
+        };
+        var init = function()
+        {
+          console.log(&quot;init()&quot;);
+        };
+        var oPublic =
+        {
+          init: init,
+          myPublicProperty: myPublicProperty,
+          myPublicFunction: myPublicFunction
+        };
+        return oPublic;
+      }();</code></pre>
+<p>You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the fucntion we defined, the function itself returns an object literal that we define.</p>
+<p>This function ltieral stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even atfer it is discarded by the garbage collector.</p>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>

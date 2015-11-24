@@ -581,7 +581,140 @@ We use the function to generate the alert, and store that in the result list. Bu
 
 So it simply sees that `i = 4` and since nothing changes it, everything is evaluated to `item4 undefined`.
 
+###Objects
 
+Olioita voidaan luoda monin tavoin, kenttiä voidaan lisätä ja poistaa, kenttiin voidaan viitata eri tavoin, myös dynaamisesti, kentän nimeksi kelpaa miltei mitä tahansa.
+
+
+There arte numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no "best" solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses. 
+
+Let's start with something simple, an object literal
+```javascript
+    var person = { 
+        name : "Wikla",
+        getName : function (){
+            return this.name
+        } 
+    } 
+```   
+
+We're creating an object called person with its own proeprties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.
+
+Next up, the object constructor
+```javascript
+    var person = new Object();
+
+    person.name = "Wikla",
+    person.getName = function(){
+        return this.name ; 
+    };
+```
+
+This is slightly different, we're first using the `ne` keyword to create an isntance of the base class `Object. We then proceed to use the traditional javasdcript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily. 
+
+Next up, the function constructor
+```javascript
+    function Person(name){
+      this.name = name
+      this.getName = function(){
+        return this.name
+      } 
+    } 
+```
+    
+This would be the closest to something like Java. We're creating a new function that serves as the constructor function whenever we create a new instance of this object. This approach has the obvious benefit of being able to create multiple objects from the same constructor but with different properties.
+
+Next up is the prototype way
+
+```javascript
+    function Person(){};
+    Person.prototype.name = "Wikla";
+```
+    
+Now what's going on here? We're first creating a new function called Person, just like with functions constructors. However we leave everything empty, but Javascript still creates  a constructor function that sets up all the basic fields javascript objects have, such as the `prototype` field. 
+The `prototype field in this case, refers to the constructor function which is used to create an instance of the Person object. By adding new field to this, we're also adding new fields to any future instances created from this function.
+
+We can also combine any of these approaches, for example, here's a combination of function constructors and prototypes
+
+```javascript
+    function Person(name){
+      this.name = name;
+    } 
+    Person.prototype.getName = function(){
+      return this.name
+    } 
+```
+
+So we first create a new function called `Person`, this function contains a single value `name. We then use the prototype field like in the previous example, to add properties to the function prototype.
+This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the proeprty name already, this getName function can obviously see it.
+
+One more thing worth mentioning is the `Object.create()` function. For the most part it works exactly the same as the new function, with one major difference. 
+`Object.create()` allows you to define the prototype of the object you're creating. When using a constructor function, the object inherits properties directly from the constructor's prototype. You can also define objects inside the object.create argument definitions.
+
+To put it simple:
+```javascript
+    var a = new Person();
+```
+
+Is equal to:
+```javascript
+    var a = Object.create(Person.prototype);
+```
+
+
+As mentioned before, we can quite freely add field to an object or the object prototype, in fact we can climb up the prototype chain using the `__proto__` field in order to assign new fields and properties to anything in the chain.
+
+This is of course not very sensible nor advised, you can easily break literally everything by making amsitake in the prototype chain. But as a property of Javascript, it is a good idea to learn it and make use of it, carefully.
+
+One very interesting property of javascript is the ability to dynamically name fields, simply put you can use variables to name any field or other variable inside an object.
+
+```javascript
+    function foobar(arg1) {
+       this.a = arg1;
+
+       name = this['a'];
+       alert(name);
+    }
+    new foobar("Javascript");
+```
+
+This, once again can be extremely powerful and extremely easy to screw up and break your entire codebase.
+
+Ideally you'd want to stick with one type of Object declarations to make your code easily readable, branch out if the other styles provide you with some benefit you wouldn't get elesewhere.
+
+Now how do you make the best use of objects in Javascript? One good thing to do is to make good use of modules. Modules are a design pattern in Javascript that allows you to easily create public and private functions, along with encapsulating data.
+
+```javascript
+      MyNamespace.MyModule = function()
+      {
+        var myPrivateProperty = 2;
+        var myPublicProperty = 1;
+        var myPrivateFunction = function()
+        {
+          console.log("myPrivateFunction()");
+        };
+        var myPublicFunction = function()
+        {
+          console.log("myPublicFunction()");
+          myPrivateFunction();
+        };
+        var init = function()
+        {
+          console.log("init()");
+        };
+        var oPublic =
+        {
+          init: init,
+          myPublicProperty: myPublicProperty,
+          myPublicFunction: myPublicFunction
+        };
+        return oPublic;
+      }();
+```
+
+You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the fucntion we defined, the function itself returns an object literal that we define. 
+
+This function ltieral stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even atfer it is discarded by the garbage collector.
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
