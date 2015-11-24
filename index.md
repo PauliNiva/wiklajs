@@ -595,7 +595,7 @@ Let's start with something simple, an object literal
             return this.name
         }
     }
-```   
+```
 
 We're creating an object called person with its own properties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.
 
@@ -820,7 +820,7 @@ Object.defineProperty(obj, 'key', withValue('static'));
 
 // if freeze is available, prevents adding or
 // removing the object prototype properties
-// (value, get, set, enumerable, writable, configurable)  
+// (value, get, set, enumerable, writable, configurable)
 (Object.freeze || Object)(Object.prototype);
 ```
 
@@ -986,6 +986,93 @@ arc.temperature; // 'get!'
 arc.temperature = 11;
 arc.temperature = 13;
 arc.getArchive(); // [{ val: 11 }, { val: 13 }]
+```
+
+### Prototype Inheritance
+
+Implementing inheritance can be done with prototypes:
+
+```
+// Constructor with instance properties
+function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+}
+
+// Prototype properties are shared across all instances of the class.
+// However, they can still be overwritten (example later).
+Person.prototype.toString = function () {
+    return [this.firstname, this.lastname].join(" ");
+}
+
+// Use Person.call to inherit the Person constructor (similar to `super`).
+function Employee(firstname, lastname, job) {
+    Person.call(this, firstname, lastname);
+    this.job = job;
+}
+
+// Set Employees's prototype to an instance of Person, so that Employee inherits
+// all of Person's properties.
+Employee.prototype = new Person(); // required for `toString` to work
+
+var person1 = new Person("John", "Doe");
+alert(person1); // > John Doe
+
+var employee1 = new Employee("John", "Doe", "Programmer")
+alert(employee1); // > John Doe
+
+// Prototype's properties can also be overwritten
+Employee.prototype.toString = function () {
+    return this.job;
+}
+
+alert(employee1); // > Programmer
+alert(person1); // > John Doe
+```
+
+Methods can be defined directly on objects:
+
+```
+function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.toString = function () {
+        return [this.firstname, this.lastname].join(" ");
+    }
+}
+
+var person1 = new Person("John", "Doe");
+alert(person1); // John Doe
+```
+
+However, here the `toString` function is created separately for each `Person` instance.
+
+A more optimal way is to define the method on the `Person.prototype` like in the first example.
+The `toString` function is now shared (inherited) with all `Person` instances, which is in turn more memory efficient.
+
+ECMAScript 6 introduces a new set of keywords for implementing classes (syntactic sugar):
+```
+Class Shape {
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+}
+
+class Square extends Shape {
+    constructor(sideLength) {
+        super(sideLength, sideLength);
+    }
+    get area() {
+        return this.height * this.width;
+    }
+    set sideLength(newLength) {
+        this.height = newLength;
+        this.width = newLength;
+    }
+}
+
+var square = new Square(2);
 ```
 
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">

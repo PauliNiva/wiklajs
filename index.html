@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -32,6 +32,7 @@
 <li><a href="#week-3">Week 3</a><ul>
 <li><a href="#objects">Objects</a></li>
 <li><a href="#changing-andor-creating-properties-for-an-object">Changing and/or creating properties for an Object</a></li>
+<li><a href="#prototype-inheritance">Prototype Inheritance</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -582,7 +583,7 @@ Object.defineProperty(obj, &#39;key&#39;, withValue(&#39;static&#39;));
 
 // if freeze is available, prevents adding or
 // removing the object prototype properties
-// (value, get, set, enumerable, writable, configurable)  
+// (value, get, set, enumerable, writable, configurable)
 (Object.freeze || Object)(Object.prototype);</code></pre>
 <p>Creating a property When the object does not have have the specified property, then Object.defineProperty() creates a new property as described. Fields can be omitted from the descriptor, and default values for those fields are considered. All Boolean fields default to false. The value of get and set fields default to undefined. When a property is defined without get/set/value/writable, then it is called &quot;generic&quot; and is &quot;typed&quot; as a data descriptor.</p>
 <pre class="javascript"><code>var o = {}; // Creates a new object
@@ -706,6 +707,78 @@ arc.temperature; // &#39;get!&#39;
 arc.temperature = 11;
 arc.temperature = 13;
 arc.getArchive(); // [{ val: 11 }, { val: 13 }]</code></pre>
+<h3 id="prototype-inheritance">Prototype Inheritance</h3>
+<p>Implementing inheritance can be done with prototypes:</p>
+<pre><code>// Constructor with instance properties
+function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+}
+
+// Prototype properties are shared across all instances of the class.
+// However, they can still be overwritten (example later).
+Person.prototype.toString = function () {
+    return [this.firstname, this.lastname].join(&quot; &quot;);
+}
+
+// Use Person.call to inherit the Person constructor (similar to `super`).
+function Employee(firstname, lastname, job) {
+    Person.call(this, firstname, lastname);
+    this.job = job;
+}
+
+// Set Employees&#39;s prototype to an instance of Person, so that Employee inherits
+// all of Person&#39;s properties.
+Employee.prototype = new Person(); // required for `toString` to work
+
+var person1 = new Person(&quot;John&quot;, &quot;Doe&quot;);
+alert(person1); // &gt; John Doe
+
+var employee1 = new Employee(&quot;John&quot;, &quot;Doe&quot;, &quot;Programmer&quot;)
+alert(employee1); // &gt; John Doe
+
+// Prototype&#39;s properties can also be overwritten
+Employee.prototype.toString = function () {
+    return this.job;
+}
+
+alert(employee1); // &gt; Programmer
+alert(person1); // &gt; John Doe</code></pre>
+<p>Methods can be defined directly on objects:</p>
+<pre><code>function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.toString = function () {
+        return [this.firstname, this.lastname].join(&quot; &quot;);
+    }
+}
+
+var person1 = new Person(&quot;John&quot;, &quot;Doe&quot;);
+alert(person1); // John Doe</code></pre>
+<p>However, here the <code>toString</code> function is created separately for each <code>Person</code> instance.</p>
+<p>A more optimal way is to define the method on the <code>Person.prototype</code> like in the first example. The <code>toString</code> function is now shared (inherited) with all <code>Person</code> instances, which is in turn more memory efficient.</p>
+<p>ECMAScript 6 introduces a new set of keywords for implementing classes (syntactic sugar):</p>
+<pre><code>Class Shape {
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+}
+
+class Square extends Shape {
+    constructor(sideLength) {
+        super(sideLength, sideLength);
+    }
+    get area() {
+        return this.height * this.width;
+    }
+    set sideLength(newLength) {
+        this.height = newLength;
+        this.width = newLength;
+    }
+}
+
+var square = new Square(2);</code></pre>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
