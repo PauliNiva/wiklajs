@@ -983,14 +983,14 @@ var square = new Square(2);
 Here is a simple object and some functions.
 
 ```javascript
-function Piste(x,y) {
+function Point(x,y) {
   this.x = x;
   this.y = y;
 }
-Piste.prototype.tulo =  function() {return this.x*this.y}
+Point.prototype.tulo =  function() {return this.x*this.y}
 
-var a = new Piste(3, 6)
-var b = new Piste(3.14, 2.8)
+var a = new Point(3, 6)
+var b = new Point(3.14, 2.8)
 ```
 
 And here is the visualization on how the prototype chain works.
