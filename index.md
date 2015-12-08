@@ -987,7 +987,7 @@ function Point(x,y) {
   this.x = x;
   this.y = y;
 }
-Point.prototype.tulo =  function() {return this.x*this.y}
+Point.prototype.product =  function() {return this.x*this.y}
 
 var a = new Point(3, 6)
 var b = new Point(3.14, 2.8)

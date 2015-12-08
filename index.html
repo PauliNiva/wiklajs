@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>wiklajs</title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -744,13 +744,13 @@ var square = new Square(2);</code></pre>
   this.x = x;
   this.y = y;
 }
-Point.prototype.tulo =  function() {return this.x*this.y}
+Point.prototype.product =  function() {return this.x*this.y}
 
 var a = new Point(3, 6)
 var b = new Point(3.14, 2.8)</code></pre>
 <p>And here is the visualization on how the prototype chain works.</p>
 <figure>
-<img src="inheritance.png" title="Proto chain" alt="" />
+<img src="inheritance.png" title="Proto chain" />
 </figure>
 <h3 id="encapsulation">Encapsulation</h3>
 <p>In JavaScript, variables have either function or global scope (however, block scope was introduced in ES6 with the keyword <code>let</code>). An Immediately-Invoked Function Expression (IIFE) is a pattern which produces a temporary local scope for the variables. The function is executed immediately upon creation. IIFEs can be used to avoid polluting the global environment and to allow access to public methods while encapsulating the function's variables.</p>
