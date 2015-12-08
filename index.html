@@ -17,26 +17,41 @@
 </header>
 <nav id="TOC">
 <ul>
-<li><a href="#week-1">Week 1</a><ul>
+<li><a href="#prequisites">Prequisites</a></li>
+<li><a href="#being-safe-with-javascript">Being safe with JavaScript</a><ul>
 <li><a href="#types">Types</a></li>
-<li><a href="#variable-hoisting">Variable hoisting</a></li>
-<li><a href="#equality">Equality</a></li>
-<li><a href="#functions-for-checking-data-types">Functions for checking data types</a></li>
+<li><a href="#type-checkers-and-linters">Type checkers and Linters</a></li>
+<li><a href="#libraries">Libraries</a></li>
+<li><a href="#linters">Linters</a></li>
+<li><a href="#static-type-checkers">Static type checkers</a></li>
+<li><a href="#meta-languages">Meta languages</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
 </ul></li>
-<li><a href="#week-2">Week 2</a><ul>
+<li><a href="#javascript-styles">JavaScript styles</a><ul>
 <li><a href="#algorithms-programming-styles">Algorithms &amp; programming styles</a></li>
 <li><a href="#functional-vs-imperative">Functional vs imperative</a></li>
-<li><a href="#exceptions">Exceptions</a></li>
+</ul></li>
+<li><a href="#javascript-practicalities">JavaScript practicalities</a><ul>
+<li><a href="#variable-hoisting">Variable hoisting</a></li>
+<li><a href="#equality">Equality</a></li>
+<li><a href="#exceptions-in-javascript">Exceptions in Javascript</a></li>
+<li><a href="#exceptions-in-ecmascript">Exceptions in ECMAScript</a></li>
 <li><a href="#closures">Closures</a></li>
 </ul></li>
-<li><a href="#week-3">Week 3</a><ul>
-<li><a href="#objects">Objects</a></li>
-<li><a href="#changing-andor-creating-properties-for-an-object">Changing and/or creating properties for an Object</a></li>
+<li><a href="#javascript-and-objects">JavaScript and Objects</a><ul>
+<li><a href="#creating-objects-in-javascript">Creating objects in Javascript</a></li>
+<li><a href="#module-pattern">Module pattern</a></li>
+<li><a href="#object.defineproperty">Object.defineProperty()</a></li>
+<li><a href="#creating-a-property">Creating a property</a></li>
+<li><a href="#modifying-a-property">Modifying a property</a></li>
+<li><a href="#enumerable-attribute">Enumerable attribute</a></li>
+<li><a href="#configurable-attribute">Configurable attribute</a></li>
 <li><a href="#prototype-inheritance">Prototype Inheritance</a></li>
+<li><a href="#encapsulation">Encapsulation</a></li>
 </ul></li>
 </ul>
 </nav>
-<p>Simple site for submitting answers for the exercises on the course &quot;Ohjelmointitekniikka: JavaScript&quot;.</p>
+<p>JavaScript Best Practices - created with ❤ at the course &quot;Ohjelmointitekniikka: JavaScript&quot; arranged by Arto Wikla at the University of Helsinki</p>
 <p>Group members:</p>
 <ul>
 <li>Veeti &quot;walther&quot; Haapsamo</li>
@@ -44,150 +59,49 @@
 <li>Niko &quot;aozi&quot; Novitsky</li>
 <li>Ville &quot;vvainio&quot; Vainio</li>
 </ul>
-<h2 id="week-1">Week 1</h2>
+<h2 id="prequisites">Prequisites</h2>
+<p>In this document, we are referring to varying JavaScript feature levels, including the upcoming ES6. ES6 hasn't been standardized yet, so some browsers might have difficulties.</p>
+<p>One solution for this problem is <a href="https://babeljs.io">Babel</a> - a compiler for writing next-generation JavaScript. Babel compiles source code written in ECMAScript 6 (ES2015) to ECMAScript 5 (ES5) syntax. The transpiled source-code can then be run on any environment supporting ES5 (Internet Explorer 9 for example).</p>
+<h2 id="being-safe-with-javascript">Being safe with JavaScript</h2>
 <h3 id="types">Types</h3>
-<p>JavaScript is a <em>loosely</em> typed or a <em>dynamic</em> language:</p>
-<ul>
-<li>Primitive datatypes:
+<p>JavaScript is a <em>weakly</em> typed or a <em>dynamic</em> language.</p>
+<p>Datatypes in JavaScript:</p>
 <ul>
 <li>Boolean</li>
 <li>Null</li>
 <li>Undefined</li>
 <li>Number</li>
 <li>String</li>
+<li>Object</li>
 <li>Symbol (ECMAScript 6)</li>
-</ul></li>
-<li>and Object</li>
 </ul>
-<h3 id="variable-hoisting">Variable hoisting</h3>
-<pre class="javascript"><code>var sum = 21;
-
-function alertSum() {
-    if (false) {
-        var sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();</code></pre>
-<p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
-<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
-<pre class="javascript"><code>var sum = 21;
-
-function alertSum() {
-    var sum;
-
-    if (false) {
-        sum = 42;
-    }
-
-    alert(sum);
-}
-
-alertSum();</code></pre>
-<h3 id="equality">Equality</h3>
-<p>In JavaScript, there is a big difference between the functions <code>==</code>and <code>===</code>. See some differences in action:</p>
-<pre class="javascript"><code>// These return true:
-0     == &quot;0&quot;
-0     == &quot;&quot;
-false == &quot;0&quot;
-null  == undefined
-&quot; &quot;   == 0
-
-// These return false:
-&quot;&quot;    == &quot;0&quot;
-false == &quot;false&quot;
-false == undefined
-false == null
-
-// However, all these return false:
-0     === &quot;0&quot;
-0     === &quot;&quot;
-false === &quot;0&quot;
-null  === undefined
-&quot; &quot;   === 0
-</code></pre>
-<p>These are caused by <em>type coercion</em>: when using a simple <code>==</code>for checking equality, the types of the parameters are coerced to match. A string is happily converted into a number, and so on. In some cases this might be useful, but it can also be a big source of confusion - use caution when using <code>==</code>. Usually it is better to just use <code>===</code> for stricter and more logical checking. In addition to making more sense, <code>===</code> can provide a performance boost, as there is no overhead from type conversion from coercion.</p>
-<h3 id="functions-for-checking-data-types">Functions for checking data types</h3>
-<p>Here are some example functions for checking the types of values.</p>
-<pre class="javascript"><code>function isNumber(a) {
-    return !isNaN(a) &amp;&amp; typeof a === &quot;number&quot;;
-}
-
-function isInt (a) {
-    return isNumber(a) &amp;&amp; a % 1 === 0; // remainder with 1 must be explicitly 0
-}
-
-function isString(a) {
-    return typeof a === &quot;string&quot;;
-}
-
-function isArray(a) {
-    return Array.isArray(a);
-}
-
-function isArrayOfNumbers (a) {
-    return isArray(a) &amp;&amp; a.every(isNumber);
-}
-
-function isArrayOfInts (a) {
-    return isArray(a) &amp;&amp; a.every(isInt);
-}
-
-function isArrayOfString (a) {
-    return isArray(a) &amp;&amp; a.every(isString);
-}
-
-function isBoolean(a) {
-    return typeof a === &quot;boolean&quot;;
-}
-
-function isUndefined(a) {
-    return typeof a === &quot;undefined&quot;;
-}
-
-function isNull(a) {
-    return a === null;
-}
-
-// Tests
-
-// number
-console.assert(true === isNumber(5), &quot;isNumber 5&quot;);
-console.assert(false === isNumber(&quot;5&quot;), &#39;not isNumber &quot;5&quot;&#39;);
-// int
-console.assert(true === isNumber(5), &quot;isNumber 5&quot;);
-console.assert(false === isNumber(&quot;5&quot;), &#39;not isNumber &quot;5&quot;&#39;);
-// string
-console.assert(true === isString(&quot;5&quot;), &#39;isString &quot;5&quot;&#39;);
-console.assert(false === isString(5), &#39;not isString 5&#39;);
-// array
-console.assert(true === isArray([&quot;5&quot;]), &#39;isArray [&quot;5&quot;]&#39;);
-console.assert(false === isArray(5), &#39;not isArray 5&#39;);
-// number array
-console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
-console.assert(false === isArrayOfNumbers(5), &#39;not isArrayOfNumbers 5&#39;);
-// int array
-console.assert(true === isArrayOfInts([5]), &#39;isArrayOfInts [5]&#39;);
-console.assert(false === isArrayOfInts([5.2]), &#39;not isArrayOfInts [5.2]&#39;);
-// string array
-console.assert(true === isArrayOfNumbers([5]), &#39;isArrayOfNumbers [5]&#39;);
-console.assert(false === isArrayOfNumbers([&quot;5&quot;]), &#39;not isArrayOfNumbers [&quot;5&quot;]&#39;);</code></pre>
-<h2 id="week-2">Week 2</h2>
-<h3 id="algorithms-programming-styles">Algorithms &amp; programming styles</h3>
-<p>Algorithms can be written in JavaScript just like with any other programming language [1]. However, due to the dynamic nature of JavaScript (as seen on Week 1), type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.</p>
-<p>Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking. There are several tools and libraries for doing this, such as <a href="http://flowtype.org">Flow</a> - a static type checker by Facebook which is designed to find type errors.</p>
+<h3 id="type-checkers-and-linters">Type checkers and Linters</h3>
+<p>Due to the dynamic nature of JavaScript, type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.</p>
+<p>Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking.</p>
 <p>An example of a function that would normally result in a crash when executing:</p>
-<pre><code>function length(x) {
+<pre class="javascript"><code>function length(x) {
     return x.length;
 }
 
 var total = length(&#39;Hello&#39;) + length(null);</code></pre>
-<p>Flow would catch this error at compile time and point out that <code>x</code> can be null (so its length property should not be accessed). [2]</p>
+<h3 id="libraries">Libraries</h3>
+<p>There are numerous methods to get around the issues of type safety. The simplest way is to write your own functions for type checking,this however is not advised since existing solutions exist. Such as <a href="https://lodash.com">Iodash</a> or <a href="https://github.com/wookieb/predicates">Predicates</a>.</p>
+<h3 id="linters">Linters</h3>
+<p>You can also use Linters. Linters are code-quality tools that detect problems in the source code. They scan the source code for syntax errors, style conventions and structural problems. In case of a problem, a message describing the problem and its approximate location in the source code is displayed. <a href="http://www.jslint.com/help.html">JSLint</a> is an example of such tool, but is heavily opinionated and provides no way to add custom rules.</p>
+<p>An alternative to <a href="http://www.jslint.com/help.html">JSLint</a> is <a href="http://jshint.com/about">JSHint</a> which is customizable and can be easily adjusted to match particular coding guidelines and conventions.</p>
+<h3 id="static-type-checkers">Static type checkers</h3>
+<p>Static type checkers are different from linters, they are more like compilers that often require some specific syntax in the code itself. They are generally superior to linters and provide more functionality. <a href="http://flowtype.org/">Flow</a> by Facebook and <a href="https://developers.google.com/closure/compiler/?hl=en">Google Closure compiler</a> are two examples of static type checkers.</p>
+<p>Flow would catch the error in the example provided above at compile time, and point out that <code>x</code> can be null (so its length property should not be accessed).</p>
+<h3 id="meta-languages">Meta languages</h3>
+<p>Finally, you can utilize meta languages that compile into JavaScript and provide better type safety such as <a href="https://www.dartlang.org/">Dart</a>, <a href="http://www.typescriptlang.org/">TypeScript</a>, <a href="http://www.purescript.org/">PureScript</a>, <a href="http://asmjs.org/">asm.js</a> and numerous others.</p>
+<h3 id="conclusion">Conclusion</h3>
 <p>The benefits of dynamic typing are immense and often overcome the aforementioned problems. Dynamic typing results in more concise &amp; less verbose code, enables easy use of &quot;hacks&quot; like duck-typing and monkey-patching, and makes it easier to write generic code.</p>
-<p>When writing algorithms in JavaScript, functions should be kept short to increase legibility and to reduce the need of tracking different variable types. Declaring the types in comments is often used to describe the types of arguments passed:</p>
-<pre><code>/*
+<p>However, it is generally recommended to write type-checked, strict and validated code, to reduce the amount of bugs and unexpected behavior.</p>
+<h2 id="javascript-styles">JavaScript styles</h2>
+<h3 id="algorithms-programming-styles">Algorithms &amp; programming styles</h3>
+<p>Algorithms can be written in JavaScript just like with any other programming language.</p>
+<p>When writing algorithms in JavaScript, functions should be kept short to increase legibility and to reduce the need of tracking different variable types. Declaring the types in comments is often used to describe the types of arguments passed. It's a good idea to follow the <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> syntax in the comments. Several IDE's, compilers and linters can extract type information and generate documentation from this syntax.</p>
+<pre class="javascript"><code>/*
  * @param {String} x
  * @param {String} y
  * @return {Boolean}
@@ -197,7 +111,7 @@ function match(x, y) {
 }</code></pre>
 <p>Same functionalities can be written in several ways, next is an example for getting the nth Fibonacci number.</p>
 <p>Utilizing a loop:</p>
-<pre><code>function fibonacci(n) {
+<pre class="javascript"><code>function fibonacci(n) {
     var a = 0, b = 1, f = 1;
     for(var i = 2; i &lt;= n; i++) {
         f = a + b;
@@ -210,18 +124,13 @@ function match(x, y) {
 &gt; fibonacci(12)
 144</code></pre>
 <p>As a recursive function:</p>
-<pre><code>function fibonacci(n){
+<pre class="javascript"><code>function fibonacci(n){
     return n &lt;= 1 ? n : (fibonacci(n-1) + fibonacci (n-2));
 }
 
 &gt; fibonacci(12)
 144</code></pre>
-<p>Usage of static code analysis tools are also highly recommended to detect errors and potential problems. They can be configured to match particular coding guidelines and conventions. One example of such tool is <a href="http://jshint.com/about/">JSHint</a>.</p>
-<p>All in all, JavaScript is a very liberal language and leaves much of the responsibility to the programmer. There are multiple ways to implement similar functionalities and it's left to the programmer to decide what fits the purpose the best. Dynamic typing is a powerful feature if utilized correctly as it enables great flexibility. However, a good understanding of the language is required in order to recognize and minimize possible problems.</p>
-<p>Links:</p>
-<p><a href="https://github.com/mgechev/javascript-algorithms">JavaScript implementation of different computer science algorithms.</a></p>
-<p><a href="http://flowtype.org">Flow, a new static type checker for JavaScript</a></p>
-<p><a href="http://jshint.com/about/">JSHint - A Static Code Analysis Tool for JavaScript</a></p>
+<p>Here are some <a href="https://github.com/mgechev/javascript-algorithms">example implementations of various algorithms</a></p>
 <h3 id="functional-vs-imperative">Functional vs imperative</h3>
 <p>Officially, JavaScript is a multi-paradigm language: it allows for simple scripting as well as object-oriented programming, imperative as well as functional programming. Here we will focus on the two perhaps most opposing paradigms: functional versus imperative.</p>
 <p>From the traditional imperative paradigm, JavaScript has the common structures of <code>while</code> and <code>for</code>-loops, <code>if</code>-<code>else</code> -blocks, <code>switch</code>-cases and so on. However, with the advent of ECMAScript 6, lots of functional features have been brought in, including <code>map</code>, <code>every</code>, <code>let</code> and so on. For a comprehensive list, see for example <a href="http://es6-features.org/">this</a> website!</p>
@@ -250,13 +159,61 @@ console.log(even(nums));</code></pre>
 <p>Here we define <code>even</code> with arrow notation as a function that is essentially a lambda: input values xs tend towards a filtered version of xs, where the filter criterion is a lambda of divisibility by two.</p>
 <p>See, we can make JavaScript look more like Haskell than C!</p>
 <p>All joking aside, it is wonderful that JavaScript has support for both styles. This allows users to code in a way familiar to them or in the best ways relevant to the use-case at hand. However, in many cases functional style allows for shorter and more concise expression, which aids readability and hence maintainability of the code base. Another interesting effect of using functional approach, arrow notation and lambdas is that we do not explicitly define return arrays or any other state at all; the code is <em>pure</em>.</p>
-<h3 id="exceptions">Exceptions</h3>
-<p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both. That is, there are three forms of the try statement</p>
-<ol type="1">
-<li>try..catch</li>
-<li>try..finally</li>
-<li>try..catch..finally</li>
-</ol>
+<h2 id="javascript-practicalities">JavaScript practicalities</h2>
+<h3 id="variable-hoisting">Variable hoisting</h3>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    if (false) {
+        var sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
+<p>Alerts <code>undefined</code>, not <code>42</code> or <code>21</code>!</p>
+<p>Why? Because the JavaScript compiler interprets the code as follows:</p>
+<pre class="javascript"><code>var sum = 21;
+
+function alertSum() {
+    var sum;
+
+    if (false) {
+        sum = 42;
+    }
+
+    alert(sum);
+}
+
+alertSum();</code></pre>
+<p>A good practice is to declare each variable at the beginning of each function in order to avoid unexpected behavior.</p>
+<h3 id="equality">Equality</h3>
+<p>In JavaScript, there is a big difference between the functions <code>==</code>and <code>===</code>. See some differences in action:</p>
+<pre class="javascript"><code>// These return true:
+0     == &quot;0&quot;
+0     == &quot;&quot;
+false == &quot;0&quot;
+null  == undefined
+&quot; &quot;   == 0
+
+// These return false:
+&quot;&quot;    == &quot;0&quot;
+false == &quot;false&quot;
+false == undefined
+false == null
+
+// However, all these return false:
+0     === &quot;0&quot;
+0     === &quot;&quot;
+false === &quot;0&quot;
+null  === undefined
+&quot; &quot;   === 0</code></pre>
+<p>These are caused by <em>type coercion</em>: when using a simple <code>==</code>for checking equality, the types of the parameters are coerced to match. A string is happily converted into a number, and so on. In some cases this might be useful, but it can also be a big source of confusion - use caution when using <code>==</code>.</p>
+<p>Usually it is better to just use <code>===</code> for stricter and more logical checking. In addition to making more sense, <code>===</code> can provide a performance boost, as there is no overhead from type conversion from coercion.</p>
+<h3 id="exceptions-in-javascript">Exceptions in Javascript</h3>
+<p>Runtime errors, more familiarly known as exceptions are errors that happen while the program is running. Exceptions can be handled with JavaScript's error handling, that is, with try statements. The try statement consists of a try block, which contains one or more statements, and at least one catch clause or a finally clause, or both.</p>
+<p>There are three forms of the try statement:</p>
 <pre class="javascript"><code>try {
     Block of code to try
 }
@@ -266,26 +223,9 @@ catch(err) {
 finally {
     Block of code to be executed regardless of the try..catch result
 }</code></pre>
-<pre class="javascript"><code>function myFunction() {
-    var message, x;
-    message = document.getElementById(&quot;message&quot;);
-    message.innerHTML = &quot;&quot;;
-    x = document.getElementById(&quot;demo&quot;).value;
-    try {
-        if(x == &quot;&quot;) throw &quot;is empty&quot;;
-        if(isNaN(x)) throw &quot;is not a number&quot;;
-        x = Number(x);
-        if(x &gt; 10) throw &quot;is too high&quot;;
-        if(x &lt; 5) throw &quot;is too low&quot;;
-    }
-    catch(err) {
-        message.innerHTML = &quot;Error: &quot; + err + &quot;.&quot;;
-    }
-    finally {
-        document.getElementById(&quot;demo&quot;).value = &quot;&quot;;
-    }
-}</code></pre>
-<p>A catch clause specifies what to do if an exception is thrown in the try block. If the try block does not succeed, that is, if any statement within the try block (or in a method called from within the block) throws an exception, control shifts to the catch clause. If no exception is thrown in the try block, the catch clause is skipped. The finally clause always executes, regardless of whether or not an exception was thrown or caught. It executes after the try block and catch clause or clauses but before any statements following the try statement. Try statements can be nested. If an inner try statement does not have a catch clause, the enclosing try statement's catch clause is entered.</p>
+<p>A <code>catch</code> clause specifies what to do if an exception is thrown in the <code>try</code> block. If the <code>try</code> block does not succeed, that is, if any statement within the <code>try</code> block (or in a method called from within the block) throws an exception, control shifts to the <code>catch</code> clause. If no exception is thrown in the <code>try</code> block, the <code>catch</code> clause is skipped.</p>
+<p>The <code>finally</code> clause always executes, regardless of whether or not an exception was thrown or caught. It executes after the <code>try</code> block and catch clause or clauses but before any statements following the try statement.</p>
+<p><code>Try</code> statements can be nested. If an inner <code>try</code> statement does not have a <code>catch</code> clause, the enclosing <code>try</code> statement's <code>catch</code> clause is entered.</p>
 <pre class="javascript"><code>try {
   try {
     throw new Error(&quot;inner&quot;);
@@ -301,8 +241,9 @@ catch (ex) {
 // Output:
 // &quot;finally&quot;
 // &quot;outer&quot; &quot;inner&quot;</code></pre>
-<p>When a single, unconditional catch clause is used, the catch block is entered when any exception is thrown. One can also use one or more conditional catch clauses to handle specific exceptions. This functionality is not part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate catch clause is entered when the specified exception is thrown. When an exception occurs, control is transferred to the appropriate catch clause. If the exception is not one of the specified exceptions and an unconditional catch clause is found, control transfers to that one.</p>
-<p>Here is how to do implement the same conditional catch clauses using only simple JavaScript that does not conform to the ECMAScript specification:</p>
+<p>When a single, unconditional <code>catch</code> clause is used, the <code>catch</code> block is entered when any exception is thrown. One can also use one or more conditional <code>catch</code> clauses to handle specific exceptions. This functionality is not part of the ECMAScript specification though. But in case you decide to use this kind of functionality, then the appropriate <code>catch</code> clause is entered when the specified exception is thrown. When an exception occurs, control is transferred to the appropriate <code>catch</code> clause. If the exception is not one of the specified exceptions and an unconditional <code>catch</code> clause is found, control transfers to that one.</p>
+<h3 id="exceptions-in-ecmascript">Exceptions in ECMAScript</h3>
+<p>Here is how to implement the same conditional catch clauses using only simple JavaScript that does not conform to the ECMAScript specification:</p>
 <pre class="javascript"><code>try {
     myroutine(); // may throw three types of exceptions
 } catch (e if e instanceof TypeError) {
@@ -315,7 +256,7 @@ catch (ex) {
     // statements to handle any unspecified exceptions
     logMyErrors(e); // pass exception object to error handler
 }</code></pre>
-<p>Here is how to do implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
+<p>Here is how to implement the same conditional catch clauses using only simple JavaScript conforming to the ECMAScript specification:</p>
 <pre class="javascript"><code>try {
     myroutine(); // may throw three types of exceptions
 } catch (e) {
@@ -332,24 +273,24 @@ catch (ex) {
 }</code></pre>
 <p>ECMAScript specifies six different kinds of exceptions.</p>
 <ol type="1">
-<li>EvalError, not in use, only included for backward compatibility's sake.</li>
-<li>RangeError, if numerical value exceeds its range.</li>
-<li>ReferenceError, for invalid references.</li>
-<li>SyntaxError, for syntactical errors.</li>
-<li>TypeError, if type deviates from expected type.</li>
-<li>URIError, if global URI handling method are used improperly.</li>
+<li><code>EvalError</code>, not in use, only included for backward compatibility's sake.</li>
+<li><code>RangeError</code>, if numerical value exceeds its range.</li>
+<li><code>ReferenceError</code>, for invalid references.</li>
+<li><code>SyntaxError</code>, for syntactical errors.</li>
+<li><code>TypeError</code>, if type deviates from expected type.</li>
+<li><code>URIError</code>, if global URI handling method are used improperly.</li>
 </ol>
-<p>When an exception is thrown in the try block, exception variable (the e in catch (e)) holds the value specified by the throw statement. This identifier can be used to get information about the thrown exception. This identifier is local to the catch clause. That is, it is created when the catch clause is entered, and after it finishes executing, the identifier is not available anymore.</p>
-<p>The finally clause contains statements that are to be executed after the try and catch clauses execute, but before any statements following the try statement. As said earlier the finally clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the finally clause will execute even if catch clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
-<p>If the finally clause returns a value, then this value becomes the return value of the entire try statement, regardless of any return statements in the try and catch blocks.</p>
-<p>The throw statement allows the creation of custom errors. Execution of the current function will stop (the statements after throw won't be executed), and control will be passed to the first catch block in the call stack. If no catch block exists among caller functions, the program will terminate.</p>
-<p>The raised exception can be JavaScript String, Number, Boolean or an Object. Throw can be used alongside with try and catch to control program flow and generate custom error messages.</p>
+<p>When an exception is thrown in the try block, exception variable (the <code>e</code> in <code>catch (e)</code>) holds the value specified by the <code>throw</code> statement. This identifier can be used to get information about the thrown exception. This identifier is local to the <code>catch</code> clause. That is, it is created when the <code>catch</code> clause is entered, and after it finishes executing, the identifier is not available anymore.</p>
+<p>The <code>finally</code> clause contains statements that are to be executed after the <code>try</code> and <code>catch</code> clauses execute, but before any statements following the <code>try</code> statement. As said earlier the <code>finally</code> clause executes regardless of whether an exception was thrown. If exception is thrown, then the statements in the <code>finally</code> clause will execute even if <code>catch</code> clause did not handle the exception. One can use the finally clause to make scripts fail gracefully when an exception occurs.</p>
+<p>If the <code>finally</code> clause returns a value, then this value becomes the return value of the entire <code>try</code> statement, regardless of any return statements in the <code>try</code> and catch blocks.</p>
+<p>The <code>throw</code> statement allows the creation of custom errors. Execution of the current function will stop (the statements after <code>throw</code> won't be executed), and control will be passed to the first <code>catch</code> block in the call stack. If no <code>catch</code> block exists among caller functions, the program will terminate.</p>
+<p>The raised exception can be JavaScript <code>String, Number, Boolean or an Object</code>. Throw can be used alongside with try and catch to control program flow and generate custom error messages.</p>
 <pre class="javascript"><code>throw &quot;Something happened&quot;;   // throws a String
 throw 42;                     // throws a number
 throw true;                   // throws a Boolean</code></pre>
 <h3 id="closures">Closures</h3>
 <p>Explaining what a closure is, is a bit difficult. It's easier to demonstrate it and expand from the examples provided.</p>
-<p>Here is a simple function that uses a closure</p>
+<p>Here is a simple function that uses a closure:</p>
 <pre class="javascript"><code>function sayHello(name) {
     var text = &#39;Hello &#39; + name; // Local variable
     var sayAlert = function() { alert(text); }
@@ -357,8 +298,7 @@ throw true;                   // throws a Boolean</code></pre>
 }
 
 var say2 = sayHello(&#39;Arto&#39;);
-say2(); // alerts &quot;Hello Arto&quot;
-</code></pre>
+say2(); // alerts &quot;Hello Arto&quot;</code></pre>
 <p>So what exactly is going on here? We're first defining a new variable, we use the <code>sayHello</code> function with a parameter.</p>
 <p>The <code>sayHello</code> function defines its own variable called text, however the text itself is not returned. Rather we define another function inside the <code>sayHello</code> function. This is the function that actually displays any text.</p>
 <p>The interesting thing about closures, is that they can access all data contained in the environment where they were created. So in this case, the closure sees the text variable and can access it.</p>
@@ -404,9 +344,9 @@ gAlertNumber(); //prints 5</code></pre>
 var oldValue = gAlertNumber;</code></pre>
 <p>We store the reference into a new variable!</p>
 <pre class="javascript"><code>setupSomeGlobals();
-oldValue(); //Prints 5
+oldValue();     //Prints 5
 oldIncrease();
-oldValue(); //Prints 6!
+oldValue();     //Prints 6!
 gAlertNumber(); //Prints 666!</code></pre>
 <p>So even though we defined global functions that all refer to the exact same closure, if we store a reference to these functions, they execute in the environment they were defined in! Even after the function terminates, even after we reset the closure where the global functions point to, if we store a reference to a function, it still executes within the environment that was in place when we define it! So the reference still exists there somewhere!</p>
 <p>This has some unfortunate implications, that are still interesting to consider.</p>
@@ -437,88 +377,92 @@ for (var j = 0; j &lt; weird.length; j++) {
 <p>So we push a new function to the list, a function which generates an alert based on the current index of the loop....except it doesn't. Because closures store the reference environment and use that to deal with variables, and in addition they are evaluated when called, not when generated.</p>
 <p>We use the function to generate the alert, and store that in the result list. But when we try to call the function of the specific item on the list, the closure goes and sees that the variable <code>i</code>, which we used for our loop, is actually 4, because we iterated through the list!</p>
 <p>So it simply sees that <code>i = 4</code> and since nothing changes it, everything is evaluated to <code>item4 undefined</code>.</p>
-<h2 id="week-3">Week 3</h2>
-<h3 id="objects">Objects</h3>
-<p>There art numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no &quot;best&quot; solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses.</p>
-<p>Let's start with something simple, an object literal</p>
-<pre class="javascript"><code>    var person = {
-        name : &quot;Wikla&quot;,
-        getName : function (){
-            return this.name
-        }
-    }</code></pre>
-<p>We're creating an object called person with its own properties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.</p>
-<p>Next up, the object constructor</p>
-<pre class="javascript"><code>    var person = new Object();
-
-    person.name = &quot;Wikla&quot;,
-    person.getName = function(){
-        return this.name ;
-    };</code></pre>
-<p>This is slightly different, we're first using the <code>ne</code> keyword to create an instance of the base class `Object. We then proceed to use the traditional JavaScript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily.</p>
-<p>Next up, the function constructor</p>
-<pre class="javascript"><code>    function Person(name){
-      this.name = name
-      this.getName = function(){
+<p>Closures can be extremely powerful tools when used properly, but in order to use them properly you really need to understand how they work.</p>
+<h2 id="javascript-and-objects">JavaScript and Objects</h2>
+<h3 id="creating-objects-in-javascript">Creating objects in Javascript</h3>
+<p>There are numerous ways to create objects in javascript, each of them has its own special use and niche it fits in, so there is really no &quot;best&quot; solution. Every approach can be used in almost any circumstances but they all have their strengths and weaknesses.</p>
+<p>Let's start with something simple, an object literal:</p>
+<pre class="javascript"><code>var person = {
+    name : &quot;Wikla&quot;,
+    getName : function (){
         return this.name
-      }
-    }</code></pre>
-<p>This would be the closest to something like Java. We're creating a new function that serves as the constructor function whenever we create a new instance of this object. This approach has the obvious benefit of being able to create multiple objects from the same constructor but with different properties.</p>
-<p>Next up is the prototype way</p>
-<pre class="javascript"><code>    function Person(){};
-    Person.prototype.name = &quot;Wikla&quot;;</code></pre>
-<p>Now what's going on here? We're first creating a new function called Person, just like with functions constructors. However we leave everything empty, but Javascript still creates a constructor function that sets up all the basic fields javascript objects have, such as the <code>prototype</code> field. The `prototype field in this case, refers to the constructor function which is used to create an instance of the Person object. By adding new field to this, we're also adding new fields to any future instances created from this function.</p>
-<p>We can also combine any of these approaches, for example, here's a combination of function constructors and prototypes</p>
-<pre class="javascript"><code>    function Person(name){
-      this.name = name;
     }
-    Person.prototype.getName = function(){
-      return this.name
-    }</code></pre>
-<p>So we first create a new function called <code>Person</code>, this function contains a single value `name. We then use the prototype field like in the previous example, to add properties to the function prototype. This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the property name already, this getName function can obviously see it.</p>
+}</code></pre>
+<p>We're creating an object called person with its own properties and function declared right there. This means we can't actually create instances of this object, so the main use of this is to create single objects.</p>
+<p>Next up, the object constructor:</p>
+<pre class="javascript"><code>var person = new Object();
+
+person.name = &quot;Wikla&quot;,
+person.getName = function(){
+    return this.name ;
+};</code></pre>
+<p>This is slightly different, we're first using the <code>new</code> keyword to create an instance of the base class <code>Object</code>. We then proceed to use the traditional JavaScript syntax to add more fields to this new object. Javascript actually allows us to add new fields to an object easily.</p>
+<p>Next up, the function constructor:</p>
+<pre class="javascript"><code>function Person(name){
+  this.name = name
+  this.getName = function(){
+    return this.name
+  }
+}</code></pre>
+<p>This would be the closest to something like Java. We're creating a new function that serves as the constructor function whenever we create a new instance of this object. This approach has the obvious benefit of being able to create multiple objects from the same constructor but with different properties.</p>
+<p>Next up is the prototype way:</p>
+<pre class="javascript"><code>function Person(){};
+Person.prototype.name = &quot;Wikla&quot;;</code></pre>
+<p>Now what's going on here? We're first creating a new function called Person, just like with functions constructors. We leave everything empty, but Javascript still creates a constructor function that sets up all the basic fields javascript objects have, such as the <code>prototype</code> field.</p>
+<p>The <code>prototype</code> field in this case, refers to the constructor function which is used to create an instance of the Person object. By adding new field to this, we're also adding new fields to any future instances created from this function.</p>
+<p>We can also combine any of these approaches. For example, here's a combination of function constructors and prototypes:</p>
+<pre class="javascript"><code>function Person(name){
+  this.name = name;
+}
+Person.prototype.getName = function(){
+  return this.name
+}</code></pre>
+<p>So we first create a new function called <code>Person</code>, this function contains a single value <code>name</code>. We then use the prototype field like in the previous example, to add properties to the function prototype.</p>
+<p>This time we add in an actual function that returns the name. Since we're adding this to the Person prototype, which has the property name already, this getName function can obviously see it.</p>
 <p>One more thing worth mentioning is the <code>Object.create()</code> function. For the most part it works exactly the same as the new function, with one major difference. <code>Object.create()</code> allows you to define the prototype of the object you're creating. When using a constructor function, the object inherits properties directly from the constructor's prototype. You can also define objects inside the object.create argument definitions.</p>
 <p>To put it simple:</p>
-<pre class="javascript"><code>    var a = new Person();</code></pre>
+<pre class="javascript"><code>var a = new Person();</code></pre>
 <p>Is equal to:</p>
-<pre class="javascript"><code>    var a = Object.create(Person.prototype);</code></pre>
-<p>As mentioned before, we can quite freely add field to an object or the object prototype, in fact we can climb up the prototype chain using the <code>__proto__</code> field in order to assign new fields and properties to anything in the chain.</p>
+<pre class="javascript"><code>var a = Object.create(Person.prototype);</code></pre>
+<p>As mentioned before, we can quite freely add fields to an object or the object prototype, in fact we can climb up the prototype chain using the <code>__proto__</code> field in order to assign new fields and properties to anything in the chain.</p>
 <p>This is of course not very sensible nor advised, you can easily break literally everything by making a mistake in the prototype chain. But as a property of Javascript, it is a good idea to learn it and make use of it, carefully.</p>
 <p>One very interesting property of javascript is the ability to dynamically name fields, simply put you can use variables to name any field or other variable inside an object.</p>
-<pre class="javascript"><code>    function foobar(arg1) {
-       this.a = arg1;
+<pre class="javascript"><code>function foobar(arg1) {
+   this.a = arg1;
 
-       name = this[&#39;a&#39;];
-       alert(name);
-    }
-    new foobar(&quot;Javascript&quot;);</code></pre>
+   name = this[&#39;a&#39;];
+   alert(name);
+}
+new foobar(&quot;Javascript&quot;);</code></pre>
 <p>This, once again can be extremely powerful and extremely easy to screw up and break your entire codebase.</p>
 <p>Ideally you'd want to stick with one type of Object declarations to make your code easily readable, branch out if the other styles provide you with some benefit you wouldn't get else where.</p>
+<h3 id="module-pattern">Module pattern</h3>
 <p>Now how do you make the best use of objects in Javascript? One good thing to do is to make good use of modules. Modules are a design pattern in Javascript that allows you to easily create public and private functions, along with encapsulating data.</p>
-<pre class="javascript"><code>      MyNamespace.MyModule = function()
-      {
-        var myPrivateProperty = 2;
-        var myPublicProperty = 1;
-        var myPrivateFunction = function()
-        {
-          console.log(&quot;myPrivateFunction()&quot;);
-        };
-        var myPublicFunction = function()
-        {
-          console.log(&quot;myPublicFunction()&quot;);
-          myPrivateFunction();
-        };
-        var init = function()
-        {
-          console.log(&quot;init()&quot;);
-        };
-        var oPublic =
-        {
-          init: init,
-          myPublicProperty: myPublicProperty,
-          myPublicFunction: myPublicFunction
-        };
-        return oPublic;
-      }();
+<pre class="javascript"><code>MyNamespace.MyModule = function()
+{
+  var myPrivateProperty = 2;
+  var myPublicProperty = 1;
+  var myPrivateFunction = function()
+{
+  console.log(&quot;myPrivateFunction()&quot;);
+};
+var myPublicFunction = function()
+{
+  console.log(&quot;myPublicFunction()&quot;);
+  myPrivateFunction();
+};
+var init = function()
+{
+  console.log(&quot;init()&quot;);
+};
+var oPublic =
+{
+  init: init,
+  myPublicProperty: myPublicProperty,
+  myPublicFunction: myPublicFunction
+};
+return oPublic;
+}();
 
 // Let&#39;s call our setup function....
 console.log(&quot;Calling init()...&quot;);
@@ -533,20 +477,30 @@ console.log(&quot;Calling myPrivateFunction()...&quot;);
 MyNamespace.MyModule.myPrivateFunction();</code></pre>
 <p>You might notice how the syntax for public and private properties is exactly the same. So how does this work exactly? Instead of creating an instance of the function we defined, the function itself returns an object literal that we define.</p>
 <p>This function literal stores the functions definitions we have created and allows us to use the public properties, the public properties can use private properties since we have defined them inside the module. And all of this works primarily thanks to Closures which allow us to keep the contents of the function alive even after it is discarded by the garbage collector.</p>
-<p>The Object.defineProperty() method defines a new property directly on an object, or modifies an existing property on an object, and returns the object.</p>
+<h3 id="object.defineproperty">Object.defineProperty()</h3>
+<p>The <code>Object.defineProperty()</code> method defines a new property directly on an object, or modifies an existing property on an object, and returns the object.</p>
 <pre class="javascript"><code>Object.defineProperty(obj, prop, desc)</code></pre>
-<p>Function has three parameters: obj...The object on which to define the property. prop...The name of the property to be defined or modified. desc...The descriptor for the property being defined or modified.</p>
-<h3 id="changing-andor-creating-properties-for-an-object">Changing and/or creating properties for an Object</h3>
-<p>Object.defineProperty allows precise addition or a modification of a property of an object. Property addition through assignment creates properties which show up when properties are enumerated. These values may be changed, and/or deleted. Object.defineProperty function allows these extra details to be changed from their defaults. Values added using Object.defineProperty() are immutable.</p>
+<p>Function has three parameters: <code>obj</code>, The object on which to define the property. <code>prop</code>, The name of the property to be defined or modified. <code>desc</code>, The descriptor for the property being defined or modified.</p>
+<p><code>Object.defineProperty()</code> allows precise addition or a modification of a property of an object. Property addition through assignment creates properties which show up when properties are enumerated. These values may be changed, and/or deleted.</p>
+<p><code>Object.defineProperty()</code> function allows these extra details to be changed from their defaults. Values added using <code>Object.defineProperty()</code> are immutable.</p>
 <p>There are two kinds of descriptors in objects: data descriptors and accessor descriptors. A data descriptor is a property that has a value, which can be writable. An accessor descriptor is a property described by a getter-setter pair of functions. A descriptor must be either one of these. It cannot be both.</p>
 <p>Both data and accessor descriptors are objects. They have the following common required keys:</p>
 <ol type="1">
-<li>configurable...true if and only if the descriptors type may be changed and if the property may be deleted from the corresponding object.</li>
-<li>enumerable...true if and only if this property shows up during enumeration of the properties of the object. Both of these default to false.</li>
+<li><code>configurable</code>, true if and only if the descriptors type may be changed and if the property may be deleted from the corresponding object.</li>
+<li><code>enumerable</code>, true if and only if this property shows up during enumeration of the properties of the object. Both of these default to false.</li>
 </ol>
-<p>Data descriptor has these two optional keys: 1. value...The value associated with the property. Can be any valid value (number, object, function, etc). This key defaults to undefined. 2. writable...true if and only if the value can be changed with an assignment operator. This key defaults to false.</p>
-<p>Accessor descriptor has these two optional keys: 1. get...getter function for the property. Can be undefined if there is no getter. The function return will be used as the value of property. set...setter function for the property, or undefined if there is no setter. The function will receive the new value being assigned to the property as its only argument. Both of these default to undefined.</p>
-<p>Keep in mind that these options are not necessarily own properties so inherited options are also considered. In order to ensure that these defaults are preserved, programmer must freeze the Object.prototype beforehand, explicitly specify all the options, or point to &quot;null&quot; as &quot;<strong>proto</strong>&quot; property.</p>
+<p>Data descriptor has these two optional keys:</p>
+<ol type="1">
+<li><code>value</code>, The value associated with the property. Can be any valid value (number, object, function, etc). This key defaults to undefined.</li>
+<li><code>writable</code>, true if and only if the value can be changed with an assignment operator. This key defaults to false.</li>
+</ol>
+<p>Accessor descriptor has these two optional keys:</p>
+<ol type="1">
+<li><code>get</code>...getter function for the property. Can be undefined if there is no getter. The function return will be used as the value of property.</li>
+<li><code>set</code>...setter function for the property, or undefined if there is no setter. The function will receive the new value being assigned to the property as its only argument.</li>
+</ol>
+<p>Both of these default to undefined.</p>
+<p>Keep in mind that these options are not necessarily own properties so inherited options are also considered. In order to ensure that these defaults are preserved, programmer must freeze the Object.prototype beforehand, explicitly specify all the options, or point to <code>null</code> as <code>__proto__</code> property.</p>
 <pre class="javascript"><code>// using __proto__
 var obj = {};
 Object.defineProperty(obj, &#39;key&#39;, {
@@ -585,8 +539,9 @@ Object.defineProperty(obj, &#39;key&#39;, withValue(&#39;static&#39;));
 // removing the object prototype properties
 // (value, get, set, enumerable, writable, configurable)
 (Object.freeze || Object)(Object.prototype);</code></pre>
-<p><strong>Creating a property</strong></p>
-<p>When the object does not have have the specified property, then Object.defineProperty() creates a new property as described. Fields can be omitted from the descriptor, and default values for those fields are considered. All Boolean fields default to false. The value of get and set fields default to undefined. When a property is defined without get/set/value/writable, then it is called &quot;generic&quot; and is &quot;typed&quot; as a data descriptor.</p>
+<h3 id="creating-a-property">Creating a property</h3>
+<p>When the object does not have have the specified property, then<code>Object.defineProperty()</code> creates a new property as described. Fields can be omitted from the descriptor, and default values for those fields are considered. All Boolean fields default to false. The value of get and set fields default to undefined.</p>
+<p>When a property is defined without get/set/value/writable, then it is called <em>generic</em> and is <em>typed</em> as a data descriptor.</p>
 <pre class="javascript"><code>var o = {}; // Creates a new object
 
 // Example of an object property added with defineProperty with a data property descriptor
@@ -616,10 +571,10 @@ Object.defineProperty(o, &#39;conflict&#39;, {
   get: function() { return 0xdeadbeef; }
 });
 // throws a TypeError: value appears only in data descriptors, get appears only in accessor descriptors</code></pre>
-<p><strong>Modifying a property</strong></p>
-<p>When the property already exists, Object.defineProperty() attempts to modify the property according to the values that are in the descriptor. If the old descriptor had its configurable attribute set to false, that is the property is &quot;non-configurable&quot;, then no attribute besides writable can be changed. In this case, it is not possible to switch back and forth between the data and accessor property types.</p>
-<p>If a property is non-configurable, its writable attribute can only be changed to false. When attempts are made to change non-configurable property attributes a TypeError is thrown. (unless the current and new value are the same).</p>
-<p>Writable attribute When the writable property attribute is set to false, then it cannot be reassigned and the property is said to be “non-writable”. Trying to write into the non-writable property does not throw an error.</p>
+<h3 id="modifying-a-property">Modifying a property</h3>
+<p>When the property already exists, <code>Object.defineProperty()</code> attempts to modify the property according to the values that are in the descriptor. If the old descriptor had its configurable attribute set to false, that is the property is &quot;non-configurable&quot;, then no attribute besides writable can be changed. In this case, it is not possible to switch back and forth between the data and accessor property types.</p>
+<p>If a property is non-configurable, its writable attribute can only be changed to false. When attempts are made to change non-configurable property attributes a <code>TypeError</code> is thrown. (unless the current and new value are the same).</p>
+<p>When the <code>writable</code> property attribute is set to false, then it cannot be reassigned and the property is said to be <code>non-writable</code>. Trying to write into the non-writable property does not throw an error.</p>
 <pre class="javascript"><code>var o = {}; // Creates a new object
 
 Object.defineProperty(o, &#39;a&#39;, {
@@ -630,7 +585,7 @@ Object.defineProperty(o, &#39;a&#39;, {
 console.log(o.a); // logs 37
 o.a = 25; // No error thrown (it would throw in strict mode, even if the value had been the same)
 console.log(o.a); // logs 37. The assignment didn&#39;t work.</code></pre>
-<p><strong>Enumerable attribute</strong></p>
+<h3 id="enumerable-attribute">Enumerable attribute</h3>
 <p>The enumerable property attribute defines if the property shows up in a for...in loop and Object.keys().</p>
 <pre class="javascript"><code>var o = {};
 Object.defineProperty(o, &#39;a&#39;, { value: 1, enumerable: true });
@@ -648,7 +603,7 @@ Object.keys(o); // [&#39;a&#39;, &#39;d&#39;]
 o.propertyIsEnumerable(&#39;a&#39;); // true
 o.propertyIsEnumerable(&#39;b&#39;); // false
 o.propertyIsEnumerable(&#39;c&#39;); // false</code></pre>
-<p><strong>Configurable attribute</strong></p>
+<h3 id="configurable-attribute">Configurable attribute</h3>
 <p>The configurable attribute controls whether the property can be deleted from the object and whether its attributes (other than writable) can be changed.</p>
 <pre class="javascript"><code>var o = {};
 Object.defineProperty(o, &#39;a&#39;, {
@@ -713,7 +668,7 @@ arc.temperature = 13;
 arc.getArchive(); // [{ val: 11 }, { val: 13 }]</code></pre>
 <h3 id="prototype-inheritance">Prototype Inheritance</h3>
 <p>Implementing inheritance can be done with prototypes:</p>
-<pre><code>// Constructor with instance properties
+<pre class="javascript"><code>// Constructor with instance properties
 function Person(firstname, lastname) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -749,7 +704,7 @@ Employee.prototype.toString = function () {
 alert(employee1); // &gt; Programmer
 alert(person1); // &gt; John Doe</code></pre>
 <p>Methods can be defined directly on objects:</p>
-<pre><code>function Person(firstname, lastname) {
+<pre class="javascript"><code>function Person(firstname, lastname) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.toString = function () {
@@ -759,10 +714,9 @@ alert(person1); // &gt; John Doe</code></pre>
 
 var person1 = new Person(&quot;John&quot;, &quot;Doe&quot;);
 alert(person1); // John Doe</code></pre>
-<p>However, here the <code>toString</code> function is created separately for each <code>Person</code> instance.</p>
-<p>A more optimal way is to define the method on the <code>Person.prototype</code> like in the first example. The <code>toString</code> function is now shared (inherited) with all <code>Person</code> instances, which is in turn more memory efficient.</p>
+<p>However, here the <code>toString</code> function is created separately for each <code>Person</code> instance. A more optimal way is to define the method on the <code>Person.prototype</code> like in the first example. The <code>toString</code> function is now shared (inherited) with all <code>Person</code> instances, which is in turn more memory efficient.</p>
 <p>ECMAScript 6 introduces a new set of keywords for implementing classes (syntactic sugar):</p>
-<pre><code>Class Shape {
+<pre class="javascript"><code>Class Shape {
     constructor(height, width) {
         this.height = height;
         this.width = width;
@@ -783,6 +737,25 @@ class Square extends Shape {
 }
 
 var square = new Square(2);</code></pre>
+<h3 id="encapsulation">Encapsulation</h3>
+<p>In JavaScript, variables have either function or global scope (however, block scope was introduced in ES6 with the keyword <code>let</code>). An Immediately-Invoked Function Expression (IIFE) is a pattern which produces a temporary local scope for the variables. The function is executed immediately upon creation. IIFEs can be used to avoid polluting the global environment and to allow access to public methods while encapsulating the function's variables.</p>
+<pre class="javascript"><code>(function () {
+  // Example of an IIFE
+}());</code></pre>
+<p>IIFEs are heavily utilized in the Module pattern (similar to the example seen earlier):</p>
+<pre class="javascript"><code>var person = (function () {
+  var firstName = &quot;John&quot;;
+  var lastName = &quot;Doe&quot;;
+  
+  return {
+    getFullName: function () {
+      return [firstName, lastName].join(&quot; &quot;);
+    }
+  };
+}());
+
+console.log(person.firstName); // &gt; undefined
+console.log(person.getFullName()); // &gt; John Doe</code></pre>
 <link rel="stylesheet" type="text/css" href="http://walther.guru/hilightjs_monokai.css">
 <script src="http://walther.guru/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
