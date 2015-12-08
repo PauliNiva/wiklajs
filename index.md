@@ -978,7 +978,7 @@ class Square extends Shape {
 
 var square = new Square(2);
 ```
-### Prototype inhertiance example and image
+### Prototype inheritance example and image
 
 Here is a simple object and some functions.
 
@@ -995,7 +995,7 @@ var b = new Piste(3.14, 2.8)
 
 And here is the visualization on how the prototype chain works.
 
-![alt text](https://github.com/Walther/wiklajs/blob/gh-pages/inheritance.png "Proto chain")
+![](inheritance.png "Proto chain")
 
 
 ### Encapsulation
