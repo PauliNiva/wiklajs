@@ -33,8 +33,6 @@ Datatypes in JavaScript:
 - Object
 - Symbol (ECMAScript 6)
 
-### Type checkers and Linters
-
 Due to the dynamic nature of JavaScript, type errors are common and extra carefulness is required when programming. For example, automatic type coercion might result in unexpected behavior when attempting to submit data to a backend.
 
 Lack of static typing might also slow developers down as bugs are harder to find (e.g. debugging the root cause of a crash) and code maintenance is more difficult (e.g. refactoring is risky without complete knowledge of dependencies). The recommended way to minimize such problems is to implement basic type checking.
