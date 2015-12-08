@@ -17,7 +17,7 @@ digraph wiklajs {
   pisteproto [label="{
   <f0> Point.prototype |
   <f1> constructor: function Point(x,y) |
-  <f2> tulo: function() |
+  <f2> product: function() |
   <f3> __proto__: Object.prototype
   }"];
 
